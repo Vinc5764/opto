@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const ContactInfoSection = () => {
@@ -33,7 +33,7 @@ const ContactInfoSection = () => {
   );
 };
 
-const ContactCard = ({ icon, title, info }) => {
+const ContactCard = ({ icon, title, info }:{icon:ReactNode,title:string,info:string}) => {
   return (
     <div className="bg-gray-900 text-white p-6 rounded-lg relative overflow-hidden">
       <div className="mb-4 bg-blue-500 inline-block p-2 rounded-lg">

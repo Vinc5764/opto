@@ -1,13 +1,21 @@
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import React from 'react';
 import doctorTeam from '@/public/optologo9.jpg';
 
-const DoctorCard = ({ name, role, imageSrc }) => (
-  <div className="relative rounded-lg overflow-hidden shadow-md">
-    <Image src={imageSrc} alt={name} className="w-full h-64 object-cover" />
+// Adding the className prop type and passing it to the component
+interface DoctorCardProps {
+  name: string;
+  role: string;
+  imageSrc: StaticImageData;
+  className?: string;
+}
+
+const DoctorCard: React.FC<DoctorCardProps> = ({ name, role, imageSrc, className }) => (
+  <div className={`relative rounded-lg overflow-hidden shadow-md ${className}`}>
+    <Image src={imageSrc} alt={`Picture of ${name}`} className="w-full h-64 object-cover" />
     <div className="absolute bottom-0 left-0 right-0 bg-[#36accb] text-white p-4">
       <h3 className="text-xl font-semibold">{name}</h3>
-      <p className="text-[#36accb]">{role}</p>
+      <p className="text-white">{role}</p> {/* Updated role text color for readability */}
     </div>
   </div>
 );
@@ -37,7 +45,12 @@ const EyeCareExperts = () => {
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {doctors.map((doctor, index) => (
-              <DoctorCard key={index} name={doctor.name} role={doctor.role} imageSrc={doctor.image} className='' />
+              <DoctorCard
+                key={index}
+                name={doctor.name}
+                role={doctor.role}
+                imageSrc={doctor.image}
+              />
             ))}
           </div>
         </div>

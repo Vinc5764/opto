@@ -1,9 +1,18 @@
 import React from 'react';
 import { Star } from 'lucide-react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import logo from '@/public/optologo10.jpg';
 
-const TestimonialCard = ({ quote, name, role, imageSrc, rating }) => (
+interface TestimonialProps{
+  quote: string;
+  name: string;
+  role: string;
+  imageSrc: StaticImageData;
+  rating:  number;
+
+}
+
+const TestimonialCard:React.FC<TestimonialProps> = ({ quote, name, role, imageSrc, rating }) => (
   <div className="bg-[#36accb] rounded-lg p-6 my-4 shadow-md">
     <div className="flex mb-4">
       {[...Array(5)].map((_, i) => (
@@ -21,7 +30,7 @@ const TestimonialCard = ({ quote, name, role, imageSrc, rating }) => (
   </div>
 );
 
-const ProgressBar = ({ label, percentage }) => (
+const ProgressBar = ({ label, percentage }:{label:string, percentage:number}) => (
   <div className="mb-4">
     <div className="flex justify-between mb-1">
       <span className="text-navy-900 font-semibold">{label}</span>

@@ -1,9 +1,14 @@
 import React from 'react';
 import { ChevronUp } from 'lucide-react';
-import Image from 'next/image';
+import Image, { StaticImageData } from 'next/image';
 import logo from '@/public/optologo7.jpg';
 
-const EyeCareService = ({ title, imageSrc }) => (
+interface EyecareProps{
+  title: string;
+  imageSrc: StaticImageData;
+}
+
+const EyeCareService:React.FC<EyecareProps> = ({ title, imageSrc }) => (
   <div className="relative rounded-lg overflow-hidden shadow-md">
     <Image src={imageSrc} alt={title} className="w-full h-48 object-cover" />
     <div className="absolute bottom-0 left-0 right-0 bg-[#36accb] text-white p-3 flex justify-between items-center">

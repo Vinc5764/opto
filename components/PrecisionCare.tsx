@@ -6,7 +6,7 @@ import doctor2 from '@/public/optologo2.png';
 
 const EyeCareLandingPage = () => {
   return (
-    <div className="bg-[#36accb] p-8 font-sans">
+    <div className="bg-blue-50 p-8 font-sans">
       <div className="max-w-6xl mx-auto">
         <header className="mb-8">
           <h2 className="text-[#36accb] text-xl font-semibold">Your Eye Health Partners</h2>
@@ -14,7 +14,7 @@ const EyeCareLandingPage = () => {
 
         <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold text-[#36accb] mb-4">
               Precision Care<br />for Every Eye
             </h1>
             <p className="text-gray-600 mb-6">
@@ -22,11 +22,9 @@ const EyeCareLandingPage = () => {
             </p>
             <div className="space-x-4">
               <button className="bg-white text-[#36accb] px-6 py-2 rounded-md hover:bg-white transition">
-                Discover More
+                Book an Appointment
               </button>
-              <button className="text-white hover:underline">
-                Find Doctor →
-              </button>
+              
             </div>
           </div>
 
@@ -38,7 +36,7 @@ const EyeCareLandingPage = () => {
                     <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-400' : 'text-yellow-200'}`} fill="currentColor" />
                   ))}
                 </div>
-                <h3 className="font-bold text-lg">4.5/5 Average Rating</h3>
+                <h3 className="font-bold text-[#36accb] text-lg">4.5/5 Average Rating</h3>
                 <p className="text-sm text-gray-600">Based on 7,500+ reviews of Our Satisfied Patients in 2024</p>
               </div>
 

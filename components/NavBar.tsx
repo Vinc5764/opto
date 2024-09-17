@@ -1,106 +1,242 @@
 'use client';
-import Image from 'next/image';
-import React, { useState } from 'react';
-import logo from '@/public/logoOpto.jpg';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
+import { ShoppingCart, ChevronDown, Minus, Plus, X, Menu } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { useState } from "react";
+import optologo from '@/public/logoOpto.jpg';
 
-const Header = () => {
-  // State to manage sidebar visibility
+type CartItem = {
+  id: number;
+  name: string;
+  price: number;
+  quantity: number;
+};
+
+export default function OpticsNavbar() {
+  const [cartItems, setCartItems] = useState<CartItem[]>([
+    { id: 1, name: "Contact Lenses", price: 19.99, quantity: 1 },
+    { id: 2, name: "Eyeglasses", price: 99.99, quantity: 1 },
+  ]);
+  
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Toggle sidebar
+  const updateQuantity = (id: number, change: number) => {
+    setCartItems(items =>
+      items.map(item =>
+        item.id === id
+          ? { ...item, quantity: Math.max(0, item.quantity + change) }
+          : item
+      ).filter(item => item.quantity > 0)
+    );
+  };
+
+  const removeItem = (id: number) => {
+    setCartItems(items => items.filter(item => item.id !== id));
+  };
+
+  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
 
   return (
-    <header className="bg-white shadow-md">
-      <div className="container mx-auto flex justify-between items-center py-4 px-6">
-        
-        {/* Logo */}
-        <div className="flex items-center">
-          <Image src={logo} alt="Logo" className="h-8 w-full" />
+    <nav className="bg-white border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between h-16">
+          {/* Hamburger Icon for Mobile */}
+          <div className="flex items-center">
+            <button className="sm:hidden" onClick={toggleSidebar}>
+              <Menu className="h-6 w-6" />
+            </button>
+            <Link href="/" className="flex-shrink-0 flex items-center">
+              <Image src={optologo} alt="Optics Logo" className="w-24" />
+            </Link>
+          </div>
+
+          {/* Desktop navigation links */}
+          <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <Link href="/" className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Home
+            </Link>
+            <Link href="/about" className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              About Us
+            </Link>
+            <Link href={`/product/opticalframes/`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Optical Frames
+            </Link>
+            <Link href={`/product/contactlenses`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Contact Lenses
+            </Link>
+            <Link href={`/product/accessories`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Accessories
+            </Link>
+            <Link href="/contact" className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Contact Us
+            </Link>
+          </div>
+
+          {/* Cart icon */}
+          <div className="flex items-center">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative">
+                  <ShoppingCart className="h-6 w-6" />
+                  {totalItems > 0 && (
+                    <Badge variant="destructive" className="absolute -top-2 -right-2">
+                      {totalItems}
+                    </Badge>
+                  )}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <div className="p-4">
+                  <h2 className="text-lg font-semibold mb-4">Your Cart</h2>
+                  {cartItems.length === 0 ? (
+                    <p className="text-muted-foreground">Your cart is empty</p>
+                  ) : (
+                    <>
+                      <ul className="space-y-4">
+                        {cartItems.map(item => (
+                          <li key={item.id} className="flex items-center justify-between">
+                            <div>
+                              <p className="font-medium">{item.name}</p>
+                              <p className="text-sm text-muted-foreground">
+                                ${item.price.toFixed(2)} x {item.quantity}
+                              </p>
+                            </div>
+                            <div className="flex items-center space-x-2">
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => updateQuantity(item.id, -1)}
+                              >
+                                <Minus className="h-4 w-4" />
+                              </Button>
+                              <span>{item.quantity}</span>
+                              <Button
+                                variant="outline"
+                                size="icon"
+                                onClick={() => updateQuantity(item.id, 1)}
+                              >
+                                <Plus className="h-4 w-4" />
+                              </Button>
+                              <Button
+                                variant="ghost"
+                                size="icon"
+                                onClick={() => removeItem(item.id)}
+                              >
+                                <X className="h-4 w-4" />
+                              </Button>
+                            </div>
+                          </li>
+                        ))}
+                      </ul>
+                      <Separator className="my-4" />
+                      <div className="flex justify-between items-center font-semibold">
+                        <p>Total ({totalItems} {totalItems === 1 ? 'item' : 'items'}):</p>
+                        <p>${totalPrice.toFixed(2)}</p>
+                      </div>
+                      <Button className="w-full mt-4">Proceed to Checkout</Button>
+                    </>
+                  )}
+                </div>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
-
-        {/* Hamburger icon for mobile */}
-        <button 
-          className="block md:hidden text-[#36accb]" 
-          onClick={toggleSidebar}
-        >
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        </button>
-
-        {/* Navigation for desktop */}
-        <nav className="hidden md:flex space-x-6">
-          <Link href="/" className="text-[#36accb] hover:text-[#36accb]">Home</Link>
-          <Link href="/about" className="text-[#36accb] hover:text-[#36accb]">About Us</Link>
-
-          {/* Dropdown */}
-          <div className="relative group">
-            <button className="text-[#36accb] hover:text-[#36accb]">
-              Services
-              <svg className="w-4 h-4 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded">
-              <Link href="#" className="block px-4 py-2 text-sm text-[#36accb] hover:bg-gray-100">Service 1</Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-[#36accb] hover:bg-gray-100">Service 2</Link>
-            </div>
-          </div>
-
-          <Link href="/blog" className="text-[#36accb] hover:text-[#36accb]">Blog</Link>
-
-          {/* Another Dropdown */}
-          <div className="relative group">
-            <button className="text-[#36accb] hover:text-[#36accb]">
-              Pages
-              <svg className="w-4 h-4 inline ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
-              </svg>
-            </button>
-            <div className="absolute hidden group-hover:block bg-white shadow-lg mt-2 rounded">
-              <Link href="#" className="block px-4 py-2 text-sm text-[#36accb] hover:bg-gray-100">Page 1</Link>
-              <Link href="#" className="block px-4 py-2 text-sm text-[#36accb] hover:bg-gray-100">Page 2</Link>
-            </div>
-          </div>
-
-          <Link href="/contact" className="text-[#36accb] hover:text-[#36accb]">Contact Us</Link>
-        </nav>
-
-        {/* Make an Appointment Button */}
-        <Link href="/appointment" className="bg-[#36accb] text-white py-2 px-4 rounded hover:bg-[#36accb] hidden md:block">Make an Appointment</Link>
       </div>
 
-      {/* Sidebar for mobile */}
-      <div className={`fixed inset-0 bg-gray-800 bg-opacity-75 z-50 transform ${sidebarOpen ? 'translate-x-0' : 'translate-x-full'} transition-transform duration-300 ease-in-out`}>
-        <div className="bg-white h-full w-64 p-6">
-          {/* Close button */}
-          <button 
-            className="text-gray-600 mb-6" 
-            onClick={toggleSidebar}
-          >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
-            </svg>
+      {/* Sidebar for Mobile */}
+      {sidebarOpen && (
+        <div className="fixed inset-0 z-50 flex flex-col bg-gray-800 text-white sm:hidden">
+          <button className="self-end p-4" onClick={toggleSidebar}>
+            <X className="h-6 w-6" />
           </button>
-          
-          {/* Sidebar links */}
-          <nav className="space-y-4">
-            <Link href="/" className="block text-[#36accb] hover:text-[#36accb]">Home</Link>
-            <Link href="/about" className="block text-[#36accb] hover:text-[#36accb]">About Us</Link>
-            <Link href="/services" className="block text-[#36accb] hover:text-[#36accb]">Services</Link>
-            <Link href="/blog" className="block text-[#36accb] hover:text-[#36accb]">Blog</Link>
-            <Link href="/pages" className="block text-[#36accb] hover:text-[#36accb]">Pages</Link>
-            <Link href="/contact" className="block text-[#36accb] hover:text-[#36accb]">Contact Us</Link>
-            <Link href="/appointment" className="block bg-[#36accb] text-white py-2 px-4 rounded hover:bg-[#36accb]">Make an Appointment</Link>
+          <nav className="px-4 py-6">
+            <Link href="/" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              Home
+            </Link>
+            <Link href="/about" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              About Us
+            </Link>
+            <Link href="/product/opticalframes" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              Optical Frames
+            </Link>
+            <Link href="/product/contactlenses" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              Contact Lenses
+            </Link>
+            <Link href="/product/accessories" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              Accessories
+            </Link>
+            <Link href="/contact" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+              Contact Us
+            </Link>
+
+            {/* Cart Section in Sidebar */}
+            <div className="mt-8">
+              <h2 className="text-lg font-semibold mb-4">Your Cart</h2>
+              {cartItems.length === 0 ? (
+                <p className="text-muted-foreground">Your cart is empty</p>
+              ) : (
+                <>
+                  <ul className="space-y-4">
+                    {cartItems.map(item => (
+                      <li key={item.id} className="flex items-center justify-between">
+                        <div>
+                          <p className="font-medium">{item.name}</p>
+                          <p className="text-sm text-muted-foreground">
+                            ${item.price.toFixed(2)} x {item.quantity}
+                          </p>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => updateQuantity(item.id, -1)}
+                          >
+                            <Minus className="h-4 w-4" />
+                          </Button>
+                          <span>{item.quantity}</span>
+                          <Button
+                            variant="outline"
+                            size="icon"
+                            onClick={() => updateQuantity(item.id, 1)}
+                          >
+                            <Plus className="h-4 w-4" />
+                          </Button>
+                          <Button
+                            variant="ghost"
+                            size="icon"
+                            onClick={() => removeItem(item.id)}
+                          >
+                            <X className="h-4 w-4" />
+                          </Button>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  <Separator className="my-4" />
+                  <div className="flex justify-between items-center font-semibold">
+                    <p>Total ({totalItems} {totalItems === 1 ? 'item' : 'items'}):</p>
+                    <p>${totalPrice.toFixed(2)}</p>
+                  </div>
+                  <Button className="w-full mt-4">Proceed to Checkout</Button>
+                </>
+              )}
+            </div>
           </nav>
         </div>
-      </div>
-    </header>
+      )}
+    </nav>
   );
-};
-
-export default Header;
+}

@@ -53,15 +53,9 @@ export default function OpticsNavbar() {
     <nav className="bg-white border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          {/* Hamburger Icon for Mobile */}
-          <div className="flex items-center">
-            <button className="sm:hidden" onClick={toggleSidebar}>
-              <Menu className="h-6 w-6" />
-            </button>
-            <Link href="/" className="flex-shrink-0 flex items-center">
-              <Image src={optologo} alt="Optics Logo" className="w-24" />
-            </Link>
-          </div>
+          <Link href="/" className="flex-shrink-0 flex items-center">
+            <Image src={optologo} alt="Optics Logo" className="w-24" />
+          </Link>
 
           {/* Desktop navigation links */}
           <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
@@ -85,12 +79,13 @@ export default function OpticsNavbar() {
             </Link>
           </div>
 
-          {/* Cart icon */}
-          <div className="flex items-center">
+          {/* Cart icon and Hamburger menu */}
+          <div className="flex items-center space-x-4">
+            {/* Cart */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative">
-                  <ShoppingCart className="h-6 w-6" />
+                  <ShoppingCart className="h-6 w-6 text-[#36accb]" />
                   {totalItems > 0 && (
                     <Badge variant="destructive" className="absolute -top-2 -right-2">
                       {totalItems}
@@ -152,33 +147,38 @@ export default function OpticsNavbar() {
                 </div>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Hamburger Icon for Mobile */}
+            <button className="sm:hidden" onClick={toggleSidebar}>
+              <Menu className="h-6 w-6 text-[#36accb]" />
+            </button>
           </div>
         </div>
       </div>
 
       {/* Sidebar for Mobile */}
       {sidebarOpen && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-gray-800 text-white sm:hidden">
+        <div className="fixed inset-0 z-50 flex flex-col bg-[#e4fbfb]  text-blue-900 sm:hidden">
           <button className="self-end p-4" onClick={toggleSidebar}>
             <X className="h-6 w-6" />
           </button>
           <nav className="px-4 py-6">
-            <Link href="/" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Home
             </Link>
-            <Link href="/about" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/about" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               About Us
             </Link>
-            <Link href="/product/opticalframes" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/product/opticalframes" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Optical Frames
             </Link>
-            <Link href="/product/contactlenses" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/product/contactlenses" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Contact Lenses
             </Link>
-            <Link href="/product/accessories" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/product/accessories" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Accessories
             </Link>
-            <Link href="/contact" className="block text-white text-lg mb-4" onClick={toggleSidebar}>
+            <Link href="/contact" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Contact Us
             </Link>
 

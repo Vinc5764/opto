@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { ChevronDown, CreditCard } from 'lucide-react'
+import {  CreditCard } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -87,7 +87,7 @@ export default function CheckoutPage() {
             </div>
           </CardContent>
         </Card>
-        <p className="text-sm text-gray-500 my-4">After clicking "Pay now", you will be redirected to Paystack to complete your purchase securely.</p>
+        <p className="text-sm text-gray-500 my-4">After clicking Pay now, you will be redirected to Paystack to complete your purchase securely.</p>
 
         <h2 className="text-2xl font-bold mb-4">Billing address</h2>
         <RadioGroup value={billingAddress} onValueChange={setBillingAddress}>

@@ -1,3 +1,4 @@
+// OpticsNavbar.tsx
 'use client';
 import Image from "next/image";
 import Link from "next/link";
@@ -12,38 +13,13 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { useState } from "react";
 import optologo from '@/public/logoOpto.jpg';
-
-type CartItem = {
-  id: number;
-  name: string;
-  price: number;
-  quantity: number;
-};
+import { useStore } from '@/store'; // Adjust the import path if needed
 
 export default function OpticsNavbar() {
-  const [cartItems, setCartItems] = useState<CartItem[]>([
-    { id: 1, name: "Contact Lenses", price: 19.99, quantity: 1 },
-    { id: 2, name: "Eyeglasses", price: 99.99, quantity: 1 },
-  ]);
-  
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  const updateQuantity = (id: number, change: number) => {
-    setCartItems(items =>
-      items.map(item =>
-        item.id === id
-          ? { ...item, quantity: Math.max(0, item.quantity + change) }
-          : item
-      ).filter(item => item.quantity > 0)
-    );
-  };
-
-  const removeItem = (id: number) => {
-    setCartItems(items => items.filter(item => item.id !== id));
-  };
-
-  const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Zustand store hooks
+  const { cartItems, addToCart, updateQuantity, removeItem, totalItems, totalPrice } = useStore();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -86,9 +62,9 @@ export default function OpticsNavbar() {
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="relative">
                   <ShoppingCart className="h-6 w-6 text-[#36accb]" />
-                  {totalItems > 0 && (
+                  {totalItems() > 0 && (
                     <Badge variant="destructive" className="absolute -top-2 -right-2">
-                      {totalItems}
+                      {totalItems()}
                     </Badge>
                   )}
                 </Button>
@@ -106,7 +82,7 @@ export default function OpticsNavbar() {
                             <div>
                               <p className="font-medium">{item.name}</p>
                               <p className="text-sm text-muted-foreground">
-                                ${item.price.toFixed(2)} x {item.quantity}
+                                ${item.salePrice.toFixed(2)} x {item.quantity}
                               </p>
                             </div>
                             <div className="flex items-center space-x-2">
@@ -138,10 +114,12 @@ export default function OpticsNavbar() {
                       </ul>
                       <Separator className="my-4" />
                       <div className="flex justify-between items-center font-semibold">
-                        <p>Total ({totalItems} {totalItems === 1 ? 'item' : 'items'}):</p>
-                        <p>${totalPrice.toFixed(2)}</p>
-                      </div>
+                        <p>Total ({totalItems()} {totalItems() === 1 ? 'item' : 'items'}):</p>
+                        <p>${totalPrice().toFixed(2)}</p>
+                        </div>
+                        <Link href={`/checkout/`}>
                       <Button className="w-full mt-4">Proceed to Checkout</Button>
+                        </Link>
                     </>
                   )}
                 </div>
@@ -195,7 +173,7 @@ export default function OpticsNavbar() {
                         <div>
                           <p className="font-medium">{item.name}</p>
                           <p className="text-sm text-muted-foreground">
-                            ${item.price.toFixed(2)} x {item.quantity}
+                            ${item.salePrice.toFixed(2)} x {item.quantity}
                           </p>
                         </div>
                         <div className="flex items-center space-x-2">
@@ -227,10 +205,12 @@ export default function OpticsNavbar() {
                   </ul>
                   <Separator className="my-4" />
                   <div className="flex justify-between items-center font-semibold">
-                    <p>Total ({totalItems} {totalItems === 1 ? 'item' : 'items'}):</p>
-                    <p>${totalPrice.toFixed(2)}</p>
-                  </div>
+                    <p>Total ({totalItems()} {totalItems() === 1 ? 'item' : 'items'}):</p>
+                    <p>${totalPrice().toFixed(2)}</p>
+                    </div>
+                  <Link href='/checkout'>
                   <Button className="w-full mt-4">Proceed to Checkout</Button>
+                  </Link>
                 </>
               )}
             </div>

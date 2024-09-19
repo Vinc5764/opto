@@ -8,28 +8,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Input } from "@/components/ui/input"
 import product1 from '@/public/product1.webp'
 import Image from 'next/image'
+import { useStore } from '@/store'
 
 // Example products
 const products = [
-  { id: 1, name: "Everest Peak", originalPrice: 397.99, salePrice: 305.99, image: product1, outOfStock: true, color: 'black' },
-  { id: 2, name: "Serengeti Sunset", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'red' },
-  { id: 3, name: "Niagara Mist", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'blue' },
-  { id: 4, name: "Savannah Breeze", originalPrice: 299.99, salePrice: 199.99, image: product1, salePercentage: 33, color: 'green' },
-  { id: 5, name: "Sahara Dunes", originalPrice: 450.00, salePrice: 400.00, image: product1, color: 'yellow' },
-  { id: 6, name: "Pacific Wave", originalPrice: 499.99, salePrice: 450.99, image: product1, color: 'blue', outOfStock: true },
-  { id: 7, name: "Rainforest Glimmer", originalPrice: 350.99, salePrice: 300.99, image: product1, salePercentage: 14, color: 'green' },
-  { id: 8, name: "Alpine Summit", originalPrice: 375.99, salePrice: 325.99, image: product1, color: 'black' },
-  { id: 9, name: "Caribbean Shine", originalPrice: 420.00, salePrice: 380.00, image: product1, color: 'purple' },
-  { id: 10, name: "Tundra Night", originalPrice: 250.00, salePrice: 225.00, image: product1, color: 'black', outOfStock: true },
-  { id: 11, name: "Sapphire Glow", originalPrice: 520.99, salePrice: 480.99, image: product1, color: 'blue' },
-  { id: 1, name: "Everest Peak", originalPrice: 397.99, salePrice: 305.99, image: product1, outOfStock: true, color: 'black' },
-  { id: 2, name: "Serengeti Sunset", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'red' },
-  { id: 3, name: "Niagara Mist", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'blue' },
-  { id: 4, name: "Savannah Breeze", originalPrice: 299.99, salePrice: 199.99, image: product1, salePercentage: 33, color: 'green' },
-  { id: 5, name: "Sahara Dunes", originalPrice: 450.00, salePrice: 400.00, image: product1, color: 'yellow' },
-  { id: 6, name: "Pacific Wave", originalPrice: 499.99, salePrice: 450.99, image: product1, color: 'blue', outOfStock: true },
-  { id: 7, name: "Rainforest Glimmer", originalPrice: 350.99, salePrice: 300.99, image: product1, salePercentage: 14, color: 'green' },
- { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold' }
+  { id: 1, name: "Everest Peak", originalPrice: 397.99, salePrice: 305.99, image: product1, outOfStock: true, color: 'black', quantity: 1},
+  { id: 2, name: "Serengeti Sunset", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'red',quantity: 1 },
+  { id: 3, name: "Niagara Mist", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'blue',quantity: 1 },
+  { id: 4, name: "Savannah Breeze", originalPrice: 299.99, salePrice: 199.99, image: product1, salePercentage: 33, color: 'green',quantity: 1 },
+  { id: 5, name: "Sahara Dunes", originalPrice: 450.00, salePrice: 400.00, image: product1, color: 'yellow',quantity: 1 },
+  { id: 6, name: "Pacific Wave", originalPrice: 499.99, salePrice: 450.99, image: product1, color: 'blue', outOfStock: true ,quantity: 1},
+  { id: 7, name: "Rainforest Glimmer", originalPrice: 350.99, salePrice: 300.99, image: product1, salePercentage: 14, color: 'green',quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold',quantity: 1 }
 ]
 
 export default function OpticalFramesProducts() {
@@ -38,8 +28,9 @@ export default function OpticalFramesProducts() {
   const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity })
   const [selectedColor, setSelectedColor] = useState('')
   const [sortBy, setSortBy] = useState('price-low-high')
-  const [itemsToShow, setItemsToShow] = useState(12) // Add state to manage items displayed
-
+  const [itemsToShow, setItemsToShow] = useState(12)
+  const {cartItems, addToCart } = useStore() // Access the global addToCart function
+console.log(cartItems)
   // Handle the sorting logic
   const handleSort = (productsToSort) => {
     switch (sortBy) {
@@ -163,7 +154,7 @@ export default function OpticalFramesProducts() {
             {sortedProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 rounded-lg shadow">
                 <div className="relative">
-                  <Link href={`/product/${product.id}`}>
+                  <Link href={`/product/`}>
                     <Image width={200} height={200} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md cursor-pointer" />
                   </Link>
                   {product.outOfStock && (
@@ -178,18 +169,22 @@ export default function OpticalFramesProducts() {
                   )}
                 </div>
                 <h3 className="text-lg font-semibold mt-2">{product.name}</h3>
-                <div className="flex items-center mt-1">
-                  <span className="text-gray-500 line-through mr-2">GH₵{product.originalPrice.toFixed(2)}</span>
-                  <span className="text-red-500 font-bold">GH₵{product.salePrice.toFixed(2)}</span>
+                <div className="flex justify-between items-center mt-2">
+                  <span className="text-gray-500 line-through">${product.originalPrice}</span>
+                  <span className="text-lg font-bold">${product.salePrice}</span>
                 </div>
-                <div className="flex justify-between mt-4">
+                <div className="flex items-center justify-end mt-4 space-x-2">
                   <Button variant="outline" size="icon">
                     <Heart className="h-4 w-4" />
                   </Button>
                   <Button variant="outline" size="icon">
                     <RotateCcw className="h-4 w-4" />
                   </Button>
-                  <Button variant="outline" size="icon">
+                  <Button
+                    variant="outline"
+                    size="icon"
+                    onClick={() => addToCart(product)} // Trigger addToCart with product
+                  >
                     <ShoppingCart className="h-4 w-4" />
                   </Button>
                 </div>
@@ -197,9 +192,9 @@ export default function OpticalFramesProducts() {
             ))}
           </div>
 
-          {/* Load More Button */}
+          {/* Load more button */}
           {itemsToShow < filteredProducts.length && (
-            <div className="mt-6 text-center">
+            <div className="text-center mt-8">
               <Button onClick={loadMore}>
                 Load More
               </Button>

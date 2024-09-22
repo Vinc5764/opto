@@ -1,17 +1,29 @@
 'use client'
 
-import { useState } from 'react'
-import Link from 'next/link'
-import { Grid, List, Heart, RotateCcw, ShoppingCart } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
-import { Input } from "@/components/ui/input"
+import { useState } from 'react';
+import Link from 'next/link';
+import { Grid, List, Heart, RotateCcw, ShoppingCart } from 'lucide-react';
+import { Button } from "@/components/ui/button";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Input } from "@/components/ui/input";
 import product2 from '@/public/product2.webp'
-import Image from 'next/image'
-import { useStore } from '@/store'
+import Image, { StaticImageData } from 'next/image';
+import { useStore } from '@/store';
+
+interface Product {
+  id: number;
+  name: string;
+  originalPrice: number;
+  salePrice: number;
+  image: StaticImageData; // Adjust based on how your images are imported
+  outOfStock?: boolean;
+  color: string;
+  quantity: number;
+  salePercentage?: number;
+}
 
 // Example products
-const products = [
+const products: Product[] = [
   {
     id: 1,
     name: "Avizor All Clean Soft - Contact Lens Solution 100ml",
@@ -102,45 +114,44 @@ const products = [
   },
 ];
 
-
 export default function OpticalFramesProducts() {
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid')
-  const [inStockOnly, setInStockOnly] = useState(false)
-  const [priceRange, setPriceRange] = useState({ min: 0, max: Infinity })
-  const [selectedColor, setSelectedColor] = useState('')
-  const [sortBy, setSortBy] = useState('price-low-high')
-  const [itemsToShow, setItemsToShow] = useState(12)
-  const {cartItems, addToCart } = useStore() // Access the global addToCart function
-console.log(cartItems)
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [inStockOnly, setInStockOnly] = useState<boolean>(false);
+  const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: Infinity });
+  const [selectedColor, setSelectedColor] = useState<string>('');
+  const [sortBy, setSortBy] = useState<string>('price-low-high');
+  const [itemsToShow, setItemsToShow] = useState<number>(12);
+  const {  addToCart } = useStore(); // Access the global addToCart function
+
   // Handle the sorting logic
-  const handleSort = (productsToSort) => {
+  const handleSort = (productsToSort: Product[]): Product[] => {
     switch (sortBy) {
       case 'price-low-high':
-        return productsToSort.sort((a, b) => a.salePrice - b.salePrice)
+        return productsToSort.sort((a, b) => a.salePrice - b.salePrice);
       case 'price-high-low':
-        return productsToSort.sort((a, b) => b.salePrice - a.salePrice)
+        return productsToSort.sort((a, b) => b.salePrice - a.salePrice);
       case 'newest':
-        return productsToSort.sort((a, b) => b.id - a.id)
+        return productsToSort.sort((a, b) => b.id - a.id);
       default:
-        return productsToSort
+        return productsToSort;
     }
-  }
+  };
 
   // Handle the filter logic
   const filteredProducts = products.filter(product => {
-    const inStockFilter = !inStockOnly || !product.outOfStock
-    const priceFilter = product.salePrice >= priceRange.min && product.salePrice <= priceRange.max
-    const colorFilter = !selectedColor || product.color === selectedColor
+    const inStockFilter = !inStockOnly || !product.outOfStock;
+    const priceFilter = product.salePrice >= priceRange.min && product.salePrice <= priceRange.max;
+    const colorFilter = !selectedColor || product.color === selectedColor;
 
-    return inStockFilter && priceFilter && colorFilter
-  })
+    return inStockFilter && priceFilter && colorFilter;
+  });
 
   // Sort and limit the filtered products based on the current itemsToShow count
-  const sortedProducts = handleSort(filteredProducts).slice(0, itemsToShow)
+  const sortedProducts = handleSort(filteredProducts).slice(0, itemsToShow);
 
   const loadMore = () => {
-    setItemsToShow((prev) => prev + 12) // Increase the number of items shown by 12
-  }
+    setItemsToShow(prev => prev + 12); // Increase the number of items shown by 12
+  };
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -235,7 +246,7 @@ console.log(cartItems)
             {sortedProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 rounded-lg shadow">
                 <div className="relative">
-                  <Link href={`/product/`}>
+                  <Link href={`/product/${product.id}`}>
                     <Image width={200} height={200} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md cursor-pointer" />
                   </Link>
                   {product.outOfStock && (
@@ -284,5 +295,5 @@ console.log(cartItems)
         </div>
       </div>
     </div>
-  )
+  );
 }

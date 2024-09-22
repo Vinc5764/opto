@@ -1,5 +1,17 @@
-// components/Breadcrumb.js
-const Breadcrumb = ({ title, breadcrumbs }) => {
+// components/Breadcrumb.tsx
+import React from 'react';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface BreadcrumbProps {
+  title: string;
+  breadcrumbs: BreadcrumbItem[];
+}
+
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ title, breadcrumbs }) => {
   return (
     <div className="bg-[#e4fbfb] py-24">
       <div className="container text-center mx-auto px-4">

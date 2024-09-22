@@ -31,7 +31,19 @@ const products: Product[] = [
   { id: 5, name: "Sahara Dunes", originalPrice: 450.00, salePrice: 400.00, image: product1, color: 'yellow', quantity: 1 },
   { id: 6, name: "Pacific Wave", originalPrice: 499.99, salePrice: 450.99, image: product1, color: 'blue', outOfStock: true, quantity: 1 },
   { id: 7, name: "Rainforest Glimmer", originalPrice: 350.99, salePrice: 300.99, image: product1, salePercentage: 14, color: 'green', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 }
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
 ];
 
 export default function OpticalFramesProducts() {

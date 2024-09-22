@@ -2,7 +2,7 @@
 'use client';
 import Image from "next/image";
 import Link from "next/link";
-import { ShoppingCart, ChevronDown, Minus, Plus, X, Menu } from "lucide-react";
+import { ShoppingCart, Minus, Plus, X, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -19,7 +19,7 @@ export default function OpticsNavbar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Zustand store hooks
-  const { cartItems, addToCart, updateQuantity, removeItem, totalItems, totalPrice } = useStore();
+  const { cartItems, updateQuantity, removeItem, totalItems, totalPrice } = useStore();
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -77,23 +77,23 @@ export default function OpticsNavbar() {
                   ) : (
                     <>
                       <ul className="space-y-4">
-                        {cartItems.map(item => (
-                          <li key={item.id} className="flex items-center justify-between">
+                        {cartItems?.map(item => (
+                          <li key={item?.id} className="flex items-center justify-between">
                             <div>
-                              <p className="font-medium">{item.name}</p>
+                              <p className="font-medium">{item?.name}</p>
                               <p className="text-sm text-muted-foreground">
-                                ${item.salePrice.toFixed(2)} x {item.quantity}
+                                ${item?.salePrice} x {item?.quantity}
                               </p>
                             </div>
                             <div className="flex items-center space-x-2">
                               <Button
                                 variant="outline"
                                 size="icon"
-                                onClick={() => updateQuantity(item.id, -1)}
+                                onClick={() => updateQuantity(item?.id, -1)}
                               >
                                 <Minus className="h-4 w-4" />
                               </Button>
-                              <span>{item.quantity}</span>
+                              <span>{item?.quantity}</span>
                               <Button
                                 variant="outline"
                                 size="icon"

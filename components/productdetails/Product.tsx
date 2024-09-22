@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
 import { Expand, Heart } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label'
 import opto from '@/public/product1.webp'
 
 export default function Product() {
-  const [selectedImage, setSelectedImage] = useState(opto)
+ const [selectedImage, setSelectedImage] = useState<StaticImageData | string>(opto);
 
   return (
     <div className="container mx-auto px-4 py-8">

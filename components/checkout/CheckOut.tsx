@@ -118,18 +118,18 @@ export default function CheckoutPage() {
         <Card>
           <CardContent className="p-4">
             {cartItems.map((item) => (
-              <div key={item.id} className="flex items-center mb-4">
+              <div key={item?.id} className="flex items-center mb-4">
                 <Image
-                  width={item.image.width}
-                  height={item.image.height}
-                  src={item.image.src}
-                  alt={item.name}
+                  width={item?.image.width}
+                  height={item?.image.height}
+                  src={item?.image.src}
+                  alt={item?.name}
                   className="w-16 h-16 object-cover mr-4"
                 />
                 <div>
-                  <h3 className="font-bold">{item.name}</h3>
-                  <p className="text-sm text-gray-500">₵{item.salePrice}</p>
-                  <p className="text-sm">Qty: {item.quantity}</p>
+                  <h3 className="font-bold">{item?.name}</h3>
+                  <p className="text-sm text-gray-500">₵{item?.salePrice}</p>
+                  <p className="text-sm">Qty: {item?.quantity}</p>
                 </div>
               </div>
             ))}

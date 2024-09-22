@@ -12,9 +12,9 @@ type CartItem = {
     src: string;
     height: number;
     width: number;
-    blurDataURL: string;
+    blurDataURL?: string;
   };
-  salePercentage: number;
+  salePercentage?: number;
 };
 
 type CartState = {
@@ -22,7 +22,7 @@ type CartState = {
   addToCart: (item: CartItem) => void;
   updateQuantity: (id: number, change: number) => void;
   removeItem: (id: number) => void;
-  totalItems?: () => number;
+  totalItems: () => number;
   totalPrice: () => number;
 };
 
@@ -31,7 +31,7 @@ export const useStore = create<CartState>()(
     (set, get) => ({
       cartItems: [],
       addToCart: (item: CartItem) => set(state => {
-        const existingItem = state.cartItems.find(cartItem => cartItem.id === item.id);
+        const existingItem = state.cartItems.find(cartItem => cartItem?.id === item.id);
         if (existingItem) {
           return {
             cartItems: state.cartItems.map(cartItem =>
@@ -49,8 +49,8 @@ export const useStore = create<CartState>()(
       updateQuantity: (id: number, change: number) => set(state => ({
         cartItems: state.cartItems
           .map(item =>
-            item.id === id
-              ? { ...item, quantity: Math.max(0, item.quantity + change) }
+            item?.id === id
+              ? { ...item, quantity: Math.max(0, item?.quantity + change) }
               : item
           )
           .filter(item => item.quantity > 0),
@@ -60,9 +60,9 @@ export const useStore = create<CartState>()(
         cartItems: state.cartItems.filter(item => item.id !== id),
       })),
 
-      totalItems: () => get().cartItems.reduce((sum, item) => sum + item.quantity, 0),
+      totalItems: () => get().cartItems.reduce((sum, item) => sum + item?.quantity, 0),
 
-      totalPrice: () => get().cartItems.reduce((sum, item) => sum + item.salePrice * item.quantity, 0),
+      totalPrice: () => get().cartItems.reduce((sum, item) => sum + item?.salePrice * item?.quantity, 0),
     }),
     {
       name: 'cart-storage', // Name of the item in localStorage

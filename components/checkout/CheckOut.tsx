@@ -21,7 +21,7 @@ export default function CheckoutPage() {
   const subtotalPrice = useStore((state) => state.totalPrice)
 
   // Define shipping fee based on selected method
-  const shippingFees = {
+  const shippingFees:Record<string, number> = {
     pickup: 0,
     accra: 15,
     kasoa: 45,

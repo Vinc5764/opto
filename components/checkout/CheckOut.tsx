@@ -1,6 +1,8 @@
 'use client'
+
 import { useState } from 'react'
-import {  CreditCard } from 'lucide-react'
+import { useStore } from '@/store'
+import { CreditCard } from 'lucide-react'
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
@@ -8,10 +10,27 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import Image from 'next/image'
+import momo from '@/public/momo.svg'
 
 export default function CheckoutPage() {
   const [shippingMethod, setShippingMethod] = useState('pickup')
   const [billingAddress, setBillingAddress] = useState('same')
+
+  const cartItems = useStore((state) => state.cartItems)
+  const subtotalPrice = useStore((state) => state.totalPrice)
+
+  // Define shipping fee based on selected method
+  const shippingFees = {
+    pickup: 0,
+    accra: 15,
+    kasoa: 45,
+    'tema-delivery': 45,
+    'outside-accra': 70,
+  }
+
+  const shippingFee = shippingFees[shippingMethod] || 0
+  const totalPrice = subtotalPrice() + shippingFee
 
   return (
     <div className="container mx-auto p-4 flex flex-col lg:flex-row gap-8">
@@ -48,16 +67,9 @@ export default function CheckoutPage() {
         <h2 className="text-2xl font-bold mb-4">Shipping method</h2>
         <RadioGroup value={shippingMethod} onValueChange={setShippingMethod}>
           {[
-            { value: 'pickup', label: 'Pick up at Adabraka Branch', price: 'FREE' },
-            { value: 'adenta', label: 'Pick up at Adenta Branch', price: 'FREE' },
-            { value: 'dansoman', label: 'Pick up at Dansoman Circle Branch', price: 'FREE' },
-            { value: 'eastlegon', label: 'Pick up at East Legon Branch', price: 'FREE' },
-            { value: 'kotobabi', label: 'Pick up at Kotobabi Branch', price: 'FREE' },
-            { value: 'kumasi', label: 'Pick up at Kumasi Branch', price: 'FREE' },
-            { value: 'tema', label: 'Pick up at Tema Community 1 Branch', price: 'FREE' },
-            { value: 'weija', label: 'Pick up at Weija Branch', price: 'FREE' },
+            { value: 'pickup', label: 'Pick up at Branch', price: 'FREE' },
             { value: 'accra', label: 'Delivery within Accra', price: '₵15.00' },
-            { value: 'kasoa', label: 'Delivery to Kasoa, Weija & Environs', price: '₵45.00' },
+            { value: 'kasoa', label: 'Delivery to Kasoa & Environs', price: '₵45.00' },
             { value: 'tema-delivery', label: 'Delivery to Tema', price: '₵45.00' },
             { value: 'outside-accra', label: 'Delivery outside Accra', price: '₵70.00' },
           ].map((option) => (
@@ -81,14 +93,11 @@ export default function CheckoutPage() {
                 <span>Paystack</span>
               </div>
               <div className="flex items-center space-x-2">
-                <img src="/visa.svg" alt="Visa" className="h-6" />
-                <img src="/mastercard.svg" alt="Mastercard" className="h-6" />
-                <img src="/momo.svg" alt="Mobile Money" className="h-6" />
+                <Image width={200} height={200} src={momo} alt="Mobile Money" className="h-6" />
               </div>
             </div>
           </CardContent>
         </Card>
-        <p className="text-sm text-gray-500 my-4">After clicking Pay now, you will be redirected to Paystack to complete your purchase securely.</p>
 
         <h2 className="text-2xl font-bold mb-4">Billing address</h2>
         <RadioGroup value={billingAddress} onValueChange={setBillingAddress}>
@@ -108,26 +117,33 @@ export default function CheckoutPage() {
       <div className="w-full lg:w-1/3">
         <Card>
           <CardContent className="p-4">
-            <div className="flex items-center mb-4">
-              <img src="/placeholder.svg" alt="Niagara Mat" className="w-16 h-16 object-cover mr-4" />
-              <div>
-                <h3 className="font-bold">Niagara Mat</h3>
-                <p className="text-sm text-gray-500">₵305.99</p>
+            {cartItems.map((item) => (
+              <div key={item.id} className="flex items-center mb-4">
+                <Image
+                  width={item.image.width}
+                  height={item.image.height}
+                  src={item.image.src}
+                  alt={item.name}
+                  className="w-16 h-16 object-cover mr-4"
+                />
+                <div>
+                  <h3 className="font-bold">{item.name}</h3>
+                  <p className="text-sm text-gray-500">₵{item.salePrice}</p>
+                  <p className="text-sm">Qty: {item.quantity}</p>
+                </div>
               </div>
-            </div>
-            <Input placeholder="Discount code" className="mb-2" />
-            <Button variant="outline" className="w-full mb-4">Apply</Button>
+            ))}
             <div className="flex justify-between mb-2">
               <span>Subtotal</span>
-              <span>₵305.99</span>
+              <span>₵{subtotalPrice()}</span>
             </div>
             <div className="flex justify-between mb-2">
               <span>Shipping</span>
-              <span className="text-green-500">FREE</span>
+              <span>₵{shippingFee === 0 ? 'FREE' : shippingFee}</span>
             </div>
             <div className="flex justify-between font-bold text-lg">
               <span>Total</span>
-              <span>USD $305.99</span>
+              <span>₵{totalPrice}</span>
             </div>
           </CardContent>
         </Card>

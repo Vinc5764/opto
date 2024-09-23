@@ -1,6 +1,7 @@
 import Header from '@/components/NavBar'
 import Breadcrumb from '@/components/BreadCrumb'
 import OpticalFramesProducts from '@/components/opticalproducts/OpticalFramesProducts'
+import Footer from '@/components/Footer';
 
 
 const page = () => {
@@ -13,7 +14,8 @@ const page = () => {
       <div>
           <Header />
           <Breadcrumb  title="Optical Frames" breadcrumbs={breadcrumbs} />
-          <OpticalFramesProducts />
+      <OpticalFramesProducts />
+      <Footer />
     </div>
   )
 }

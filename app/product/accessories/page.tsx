@@ -2,6 +2,7 @@ import Header from '@/components/NavBar'
 import Breadcrumb from '@/components/BreadCrumb'
 import React from 'react'
 import AccessoryProducts from '@/components/accesoryproducts/AcessoryProducts';
+import Footer from '@/components/Footer';
 
 const page = () => {
      const breadcrumbs = [
@@ -14,6 +15,7 @@ const page = () => {
           <Header />
       <Breadcrumb title='Accessories' breadcrumbs={breadcrumbs} />
       <AccessoryProducts />
+      <Footer />
     </div>
   )
 }

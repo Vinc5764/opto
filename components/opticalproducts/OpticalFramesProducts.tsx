@@ -7,8 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import product1 from '@/public/product1.webp';
+import product1a from '@/public/product1a.webp';
+import product1b from '@/public/product1b.webp';
+import product4 from '@/public/product4.webp';
+import product4a from '@/public/product4a.webp';
+import product4b from '@/public/product4b.webp';
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
+import useProductDetailsStore from '@/store';
+
+
+type ProductProperty = {
+  label: string;
+  value: string;
+};
 
 interface Product {
   id: number;
@@ -16,35 +28,146 @@ interface Product {
   originalPrice: number;
   salePrice: number;
   image: StaticImageData; // Adjust based on how your images are imported
-  outOfStock?: boolean;
+  outOfStock: boolean;
   color: string;
   quantity: number;
   salePercentage?: number;
+  product_image: StaticImageData;
+  product_image_shades: StaticImageData[];
+  product_description: string;
+  product_properties: ProductProperty[];
+  product_return_policy: string;
 }
+
+
+
+
 
 // Example products
 const products: Product[] = [
-  { id: 1, name: "Everest Peak", originalPrice: 397.99, salePrice: 305.99, image: product1, outOfStock: true, color: 'black', quantity: 1 },
-  { id: 2, name: "Serengeti Sunset", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'red', quantity: 1 },
-  { id: 3, name: "Niagara Mist", originalPrice: 397.99, salePrice: 305.99, image: product1, salePercentage: 23, color: 'blue', quantity: 1 },
-  { id: 4, name: "Savannah Breeze", originalPrice: 299.99, salePrice: 199.99, image: product1, salePercentage: 33, color: 'green', quantity: 1 },
-  { id: 5, name: "Sahara Dunes", originalPrice: 450.00, salePrice: 400.00, image: product1, color: 'yellow', quantity: 1 },
-  { id: 6, name: "Pacific Wave", originalPrice: 499.99, salePrice: 450.99, image: product1, color: 'blue', outOfStock: true, quantity: 1 },
-  { id: 7, name: "Rainforest Glimmer", originalPrice: 350.99, salePrice: 300.99, image: product1, salePercentage: 14, color: 'green', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
-  { id: 12, name: "Golden Mirage", originalPrice: 320.99, salePrice: 280.99, image: product1, salePercentage: 15, color: 'gold', quantity: 1 },
+  {
+    id: 1,
+    name: "Everest Peak",
+    originalPrice: 397.99,
+    salePrice: 305.99,
+    image: product1,
+    outOfStock: true,
+    color: 'black',
+    quantity: 1,
+    product_image: product1,
+    product_image_shades: [product1, product1a, product1b],
+    product_description: 'Discover the perfect blend of style and functionality with this Optical Frame, meticulously designed to fit any face shape and complement any style. This versatile eyeglass frame is the ideal choice for anyone seeking a blend of elegance, durability, and comfort.',
+    product_properties: [{ label: 'Material', value: 'Plastic' }],
+    product_return_policy: '30-day return policy.'
+  },
+  {
+    id: 2,
+    name: "Serengeti Sunset",
+    originalPrice: 397.99,
+    salePrice: 305.99,
+    image: product4,
+    salePercentage: 11,
+    outOfStock:false,
+    color: 'red',
+    quantity: 1,
+    product_image: product4,
+    product_image_shades: [product4, product4a, product4b],
+    product_description: 'Elegant, stylish frame perfect for evening wear. Enhances your unique features.',
+    product_properties: [{ label: 'Material', value: 'Metal' }],
+    product_return_policy: '15-day return policy.'
+  },
+  {
+    id: 3,
+    name: "Niagara Mist",
+    originalPrice: 397.99,
+    salePrice: 305.99,
+    image: product1,
+    outOfStock: false,
+    color: 'blue',
+    quantity: 1,
+    product_image: product1,
+    product_image_shades: [product1, product1a, product1b],
+    product_description: 'Lightweight, waterproof frame suitable for all occasions, inspired by nature.',
+    product_properties: [{ label: 'Material', value: 'Titanium' }],
+    product_return_policy: '20-day return policy.'
+  },
+  {
+    id: 4,
+    name: "Savannah Breeze",
+    originalPrice: 299.99,
+    salePrice: 199.99,
+    image: product4,
+    outOfStock: false,
+    color: 'green',
+    quantity: 1,
+    product_image: product4,
+    product_image_shades: [product4, product4a, product4b],
+    product_description: 'Stylish, durable, and eco-friendly frame with a touch of elegance for daily wear.',
+    product_properties: [{ label: 'Material', value: 'Wood' }],
+    product_return_policy: '30-day return policy.'
+  },
+  {
+    id: 5,
+    name: "Sahara Dunes",
+    originalPrice: 450.00,
+    salePrice: 400.00,
+    image: product1,
+    outOfStock: true,
+    color: 'yellow',
+    quantity: 1,
+    product_image: product1,
+    product_image_shades: [product1, product1a, product1b],
+    product_description: 'Bold, iconic design perfect for those seeking a statement piece.',
+    product_properties: [{ label: 'Material', value: 'Plastic' }],
+    product_return_policy: '30-day return policy.'
+  },
+  {
+    id: 6,
+    name: "Pacific Wave",
+    originalPrice: 499.99,
+    salePrice: 450.99,
+    image: product4,
+    outOfStock: true,
+    color: 'blue',
+    quantity: 1,
+    product_image: product4,
+    product_image_shades: [product4, product4a, product4b],
+    product_description: 'Classic, timeless frame with a unique wave-inspired design for everyday wear.',
+    product_properties: [{ label: 'Material', value: 'Carbon Fiber' }],
+    product_return_policy: '30-day return policy.'
+  },
+  {
+    id: 7,
+    name: "Rainforest Glimmer",
+    originalPrice: 350.99,
+    salePrice: 300.99,
+    image: product1,
+    outOfStock: false,
+    color: 'green',
+    quantity: 1,
+    product_image: product1,
+    product_image_shades: [product1, product1a, product1b],
+    product_description: 'Vibrant, unique, and eco-friendly design inspired by nature’s beauty.',
+    product_properties: [{ label: 'Material', value: 'Acetate' }],
+    product_return_policy: '25-day return policy.'
+  },
+  {
+    id: 8,
+    name: "Golden Mirage",
+    originalPrice: 320.99,
+    salePrice: 280.99,
+    image: product4,
+    outOfStock: false,
+    color: 'gold',
+    quantity: 1,
+    product_image: product4,
+    product_image_shades: [product4, product4a, product4b],
+    product_description: 'Luxurious and shiny gold frame, perfect for formal events or standout occasions.',
+    product_properties: [{ label: 'Material', value: 'Gold Plated' }],
+    product_return_policy: '30-day return policy.'
+  }
 ];
+
 
 export default function OpticalFramesProducts() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -53,8 +176,16 @@ export default function OpticalFramesProducts() {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price-low-high');
   const [itemsToShow, setItemsToShow] = useState<number>(12);
-  const {  addToCart } = useStore(); // Access the global addToCart function
+  const { addToCart } = useStore();
+  const { setProductDetails } = useProductDetailsStore();
+  
+  
+  // Access the global addToCart function
 
+   const handleProductClick = (product:Product) => {
+    setProductDetails(product);
+    localStorage.setItem('selectedProduct', JSON.stringify(product)); // Save to localStorage if necessary
+  };
   // Handle the sorting logic
   const handleSort = (productsToSort: Product[]): Product[] => {
     switch (sortBy) {
@@ -178,8 +309,10 @@ export default function OpticalFramesProducts() {
             {sortedProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 rounded-lg shadow">
                 <div className="relative">
-                  <Link href={`/product/${product.id}`}>
+                  <Link href={`/product/`}>
+                    <div onClick={() => handleProductClick(product)}>
                     <Image width={200} height={200} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md cursor-pointer" />
+                    </div>
                   </Link>
                   {product.outOfStock && (
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">

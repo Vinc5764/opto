@@ -1,3 +1,4 @@
+import { StaticImageData } from 'next/image';
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 
@@ -16,6 +17,7 @@ type CartItem = {
   };
   salePercentage?: number;
 };
+
 
 type CartState = {
   cartItems: CartItem[];
@@ -70,5 +72,40 @@ export const useStore = create<CartState>()(
     }
   )
 );
+
+
+type ProductProperty = {
+  label: string;
+  value: string;
+};
+
+
+interface ProductDetails {
+  id: number;
+  color: string;
+  quantity: number;
+  image: StaticImageData;
+  name: string;
+  salePrice: number;
+  originalPrice: number;
+  outOfStock: boolean;
+  product_image: StaticImageData;
+  product_image_shades: StaticImageData[];
+  product_description: string;
+  product_properties: ProductProperty[];
+  product_return_policy: string;
+}
+
+interface StoreState {
+  productDetails: ProductDetails | null;
+  setProductDetails: (details: ProductDetails) => void;
+}
+
+const useProductDetailsStore = create<StoreState>((set) => ({
+  productDetails: null,
+  setProductDetails: (details) => set({ productDetails: details }),
+}));
+
+export default useProductDetailsStore;
 
 

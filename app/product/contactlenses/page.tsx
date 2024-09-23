@@ -2,6 +2,7 @@ import Header from '@/components/NavBar'
 import Breadcrumb from '@/components/BreadCrumb'
 import React from 'react'
 import LenseProducts from '@/components/lensesproducts/LenseProducts';
+import Footer from '@/components/Footer';
 
 const page = () => {
     const breadcrumbs = [
@@ -14,6 +15,7 @@ const page = () => {
       <Header />
       <Breadcrumb title='Contact Lenses' breadcrumbs={breadcrumbs} />
       <LenseProducts />
+      <Footer />
     </div>
   )
 }

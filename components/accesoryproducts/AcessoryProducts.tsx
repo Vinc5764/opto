@@ -7,98 +7,165 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import product3 from '@/public/product3.webp'
+import product3a from '@/public/product3.webp'
+import product3b from '@/public/product3.webp'
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
+import useProductDetailsStore from '@/store';
 
+
+
+type ProductProperty = {
+  label: string;
+  value: string;
+};
 interface Product {
   id: number;
   name: string;
   originalPrice: number;
   salePrice: number;
   image: StaticImageData; // Adjust based on how your images are imported
-  outOfStock?: boolean;
+  outOfStock: boolean;
   color: string;
   quantity: number;
   salePercentage?: number;
+  product_image: StaticImageData;
+  product_image_shades: StaticImageData[];
+  product_description: string;
+  product_properties: ProductProperty[];
+  product_return_policy: string;
 }
+
+
+
+
 
 // Example products
 const products: Product[] = [
-   { 
-    id: 1, 
-    name: "Assorted Nylon Cord", 
-    originalPrice: 125.00, 
-    salePrice: 125.00, 
+  {
+    id: 1,
+    name: "Assorted Nylon Cord",
+    originalPrice: 125.00,
+    salePrice: 125.00,
     image: product3, // Replace with actual image import
-    color: "blue", 
-    quantity: 1 
+    outOfStock: false,
+    color: "blue",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Strong, versatile nylon cord suitable for a variety of uses.',
+    product_properties: [{ label: 'Material', value: 'Nylon' }],
+    product_return_policy: '30-day return policy.'
   },
-  { 
-    id: 2, 
-    name: "Elastic Cord", 
-    originalPrice: 125.00, 
-    salePrice: 125.00, 
+  {
+    id: 2,
+    name: "Elastic Cord",
+    originalPrice: 125.00,
+    salePrice: 125.00,
     image: product3, // Replace with actual image import
-    color: "blue", 
-    quantity: 1 
+    outOfStock: false,
+    color: "blue",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Durable elastic cord with great flexibility and stretch.',
+    product_properties: [{ label: 'Material', value: 'Elastic' }],
+    product_return_policy: '30-day return policy.'
   },
-  { 
-    id: 3, 
-    name: "Plastic Cord", 
-    originalPrice: 125.00, 
-    salePrice: 125.00, 
+  {
+    id: 3,
+    name: "Plastic Cord",
+    originalPrice: 125.00,
+    salePrice: 125.00,
     image: product3, // Replace with actual image import
-    color: "purple", 
-    quantity: 1 
+    outOfStock: false,
+    color: "purple",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Lightweight plastic cord, ideal for a range of projects.',
+    product_properties: [{ label: 'Material', value: 'Plastic' }],
+    product_return_policy: '30-day return policy.'
   },
-  { 
-    id: 4, 
-    name: "Black Cloth Cord", 
-    originalPrice: 55.00, 
-    salePrice: 55.00, 
+  {
+    id: 4,
+    name: "Black Cloth Cord",
+    originalPrice: 55.00,
+    salePrice: 55.00,
     image: product3, // Replace with actual image import
-    color: "black", 
-    quantity: 1 
+    outOfStock: true,
+    color: "black",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Stylish and durable black cloth cord for daily use.',
+    product_properties: [{ label: 'Material', value: 'Cloth' }],
+    product_return_policy: '30-day return policy.'
   },
-  { 
-    id: 5, 
-    name: "Multiclean Lens Cleaner", 
-    originalPrice: 65.00, 
-    salePrice: 65.00, 
+  {
+    id: 5,
+    name: "Multiclean Lens Cleaner",
+    originalPrice: 65.00,
+    salePrice: 65.00,
     image: product3, // Replace with actual image import
-    color: "red", 
-    quantity: 1 
+    outOfStock: false,
+    color: "red",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Effective lens cleaner for all types of glasses and optics.',
+    product_properties: [{ label: 'Material', value: 'Liquid' }],
+    product_return_policy: '15-day return policy.'
   },
-  { 
-    id: 6, 
-    name: "Avizor All Clean Soft - Contact Lens Solution 100ml", 
-    originalPrice: 85.00, 
+  {
+    id: 6,
+    name: "Avizor All Clean Soft - Contact Lens Solution 100ml",
+    originalPrice: 85.00,
     salePrice: 65.00,
     salePercentage: 23,
     image: product3, // Replace with actual image import
-    color: "blue", 
-    quantity: 1 
+    outOfStock: false,
+    color: "blue",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'All-in-one contact lens cleaning solution for soft lenses.',
+    product_properties: [{ label: 'Volume', value: '100ml' }],
+    product_return_policy: '20-day return policy.'
   },
-  { 
-    id: 7, 
-    name: "Max OptiFresh Bioplus™", 
-    originalPrice: 100.00, 
-    salePrice: 100.00, 
+  {
+    id: 7,
+    name: "Max OptiFresh Bioplus™",
+    originalPrice: 100.00,
+    salePrice: 100.00,
     image: product3, // Replace with actual image import
-    color: "blue", 
-    quantity: 1 
+    outOfStock: false,
+    color: "blue",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Advanced contact lens solution with bioplus formula for extra comfort.',
+    product_properties: [{ label: 'Volume', value: '120ml' }],
+    product_return_policy: '30-day return policy.'
   },
-  { 
-    id: 8, 
-    name: "Lighted Magnifier", 
-    originalPrice: 125.00, 
+  {
+    id: 8,
+    name: "Lighted Magnifier",
+    originalPrice: 125.00,
     salePrice: 125.00, 
-    salePercentage: 23,
     image: product3, // Replace with actual image import
-    color: "white", 
-    quantity: 1 
+    outOfStock: true,
+    color: "white",
+    quantity: 1,
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
+    product_description: 'Handheld magnifier with built-in light for enhanced visibility.',
+    product_properties: [{ label: 'Material', value: 'Plastic and Glass' }],
+    product_return_policy: '15-day return policy.'
   }
 ];
+
+
 
 export default function OpticalFramesProducts() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -107,8 +174,16 @@ export default function OpticalFramesProducts() {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price-low-high');
   const [itemsToShow, setItemsToShow] = useState<number>(12);
-  const {  addToCart } = useStore(); // Access the global addToCart function
+  const { addToCart } = useStore();
+  const { setProductDetails } = useProductDetailsStore();
+  
+  
+  // Access the global addToCart function
 
+   const handleProductClick = (product:Product) => {
+    setProductDetails(product);
+    localStorage.setItem('selectedProduct', JSON.stringify(product)); // Save to localStorage if necessary
+  };
   // Handle the sorting logic
   const handleSort = (productsToSort: Product[]): Product[] => {
     switch (sortBy) {
@@ -232,8 +307,10 @@ export default function OpticalFramesProducts() {
             {sortedProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 rounded-lg shadow">
                 <div className="relative">
-                  <Link href={`/product/${product.id}`}>
+                  <Link href={`/product/`}>
+                    <div onClick={() => handleProductClick(product)}>
                     <Image width={200} height={200} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md cursor-pointer" />
+                    </div>
                   </Link>
                   {product.outOfStock && (
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">

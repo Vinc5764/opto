@@ -7,8 +7,18 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import product2 from '@/public/product2.webp'
+import product2a from '@/public/product2.webp'
+import product2b from '@/public/product2.webp'
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
+import useProductDetailsStore from '@/store';
+
+
+type ProductProperty = {
+  label: string;
+  value: string;
+};
+
 
 interface Product {
   id: number;
@@ -16,11 +26,20 @@ interface Product {
   originalPrice: number;
   salePrice: number;
   image: StaticImageData; // Adjust based on how your images are imported
-  outOfStock?: boolean;
+  outOfStock: boolean;
   color: string;
   quantity: number;
   salePercentage?: number;
+  product_image: StaticImageData;
+  product_image_shades: StaticImageData[];
+  product_description: string;
+  product_properties: ProductProperty[];
+  product_return_policy: string;
 }
+
+
+
+
 
 // Example products
 const products: Product[] = [
@@ -29,90 +48,144 @@ const products: Product[] = [
     name: "Avizor All Clean Soft - Contact Lens Solution 100ml",
     originalPrice: 55.00,
     salePrice: 55.00,
-    image: product2, // Use your own image import here
+    image: product2,
+    outOfStock: false,
     color: "blue",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "A versatile contact lens solution suitable for all types of soft lenses, offering both cleaning and moisturizing properties.",
+    product_properties: [{ label: "Volume", value: "100ml" }],
+    product_return_policy: "7-day return policy."
   },
   {
     id: 2,
     name: "Clear 1 Day (Pack of 30 Lenses)",
     originalPrice: 180.00,
     salePrice: 160.00,
-    image: product2, // Use your own image import here
+    image: product2,
     salePercentage: 11,
+    outOfStock: false,
     color: "white",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Daily disposable contact lenses for clear and crisp vision with superior comfort.",
+    product_properties: [{ label: "Type", value: "Daily Disposable" }],
+    product_return_policy: "15-day return policy."
   },
   {
     id: 3,
     name: "Clear55A Monthly (Pack of 6 Lenses)",
     originalPrice: 260.00,
     salePrice: 230.00,
-    image: product2, // Use your own image import here
+    image: product2,
     salePercentage: 12,
+    outOfStock: false,
     color: "blue",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Monthly contact lenses designed for long-lasting comfort and clear vision.",
+    product_properties: [{ label: "Type", value: "Monthly Disposable" }],
+    product_return_policy: "30-day return policy."
   },
   {
     id: 4,
     name: "Bausch & Lomb SofLens Daily (Pack of 30 Lenses)",
     originalPrice: 240.00,
     salePrice: 200.00,
-    image: product2, // Use your own image import here
+    image: product2,
     salePercentage: 16,
+    outOfStock: false,
     color: "white",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Daily lenses providing comfort, clarity, and convenience for everyday wear.",
+    product_properties: [{ label: "Type", value: "Daily Disposable" }],
+    product_return_policy: "20-day return policy."
   },
   {
     id: 5,
     name: "Freshlook OneDay Color (Pack of 10 Lenses)",
     originalPrice: 300.00,
     salePrice: 240.00,
-    image: product2, // Use your own image import here
-    salePercentage: 20,
+    image: product2,
+    outOfStock: true,
     color: "blue",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Colored daily disposable lenses for a fresh new look every day.",
+    product_properties: [{ label: "Type", value: "Daily Disposable" }],
+    product_return_policy: "10-day return policy."
   },
   {
     id: 6,
     name: "Proclear 1 Day (Pack of 30 Lenses)",
     originalPrice: 350.00,
     salePrice: 310.00,
-    image: product2, // Use your own image import here
+    image: product2,
     salePercentage: 11,
+    outOfStock: false,
     color: "white",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Comfortable daily contact lenses for all-day hydration and clarity.",
+    product_properties: [{ label: "Type", value: "Daily Disposable" }],
+    product_return_policy: "30-day return policy."
   },
   {
     id: 7,
     name: "Focus Dailies (Pack of 30 Lenses)",
     originalPrice: 270.00,
     salePrice: 230.00,
-    image: product2, // Use your own image import here
+    image: product2,
     salePercentage: 15,
+    outOfStock: false,
     color: "blue",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Convenient daily disposable contact lenses offering clear vision and comfort.",
+    product_properties: [{ label: "Type", value: "Daily Disposable" }],
+    product_return_policy: "30-day return policy."
   },
   {
     id: 8,
     name: "Clariti Monthly (Pack of 6 Lenses)",
     originalPrice: 160.00,
     salePrice: 160.00,
-    image: product2, // Use your own image import here
+    image: product2,
+    outOfStock: false,
     color: "blue",
     quantity: 1,
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Monthly contact lenses designed for comfort, providing crisp vision all month long.",
+    product_properties: [{ label: "Type", value: "Monthly Disposable" }],
+    product_return_policy: "15-day return policy."
   },
   {
     id: 9,
     name: "Air Optix Aqua (Pack of 6 Lenses)",
     originalPrice: 400.00,
     salePrice: 350.00,
-    image: product2, // Use your own image import here
-    salePercentage: 12,
+    image: product2,
+    outOfStock: true,
     color: "white",
     quantity: 1,
-  },
+    product_image: product2,
+    product_image_shades: [product2, product2a, product2b],
+    product_description: "Breathable monthly lenses for superior comfort and clarity.",
+    product_properties: [{ label: "Type", value: "Monthly Disposable" }],
+    product_return_policy: "30-day return policy."
+  }
 ];
+
+
 
 export default function OpticalFramesProducts() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -121,8 +194,16 @@ export default function OpticalFramesProducts() {
   const [selectedColor, setSelectedColor] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price-low-high');
   const [itemsToShow, setItemsToShow] = useState<number>(12);
-  const {  addToCart } = useStore(); // Access the global addToCart function
+  const { addToCart } = useStore();
+  const { setProductDetails } = useProductDetailsStore();
+  
+  
+  // Access the global addToCart function
 
+   const handleProductClick = (product:Product) => {
+    setProductDetails(product);
+    localStorage.setItem('selectedProduct', JSON.stringify(product)); // Save to localStorage if necessary
+  };
   // Handle the sorting logic
   const handleSort = (productsToSort: Product[]): Product[] => {
     switch (sortBy) {
@@ -246,8 +327,10 @@ export default function OpticalFramesProducts() {
             {sortedProducts.map((product) => (
               <div key={product.id} className="bg-white p-4 rounded-lg shadow">
                 <div className="relative">
-                  <Link href={`/product/${product.id}`}>
+                  <Link href={`/product/`}>
+                    <div onClick={() => handleProductClick(product)}>
                     <Image width={200} height={200} src={product.image} alt={product.name} className="w-full h-48 object-cover rounded-md cursor-pointer" />
+                    </div>
                   </Link>
                   {product.outOfStock && (
                     <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded">

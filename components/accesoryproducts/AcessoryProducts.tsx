@@ -117,52 +117,6 @@ const products: Product[] = [
     product_properties: [{ label: 'Material', value: 'Liquid' }],
     product_return_policy: '15-day return policy.'
   },
-  {
-    id: 6,
-    name: "Avizor All Clean Soft - Contact Lens Solution 100ml",
-    originalPrice: 85.00,
-    salePrice: 65.00,
-    salePercentage: 23,
-    image: product3, // Replace with actual image import
-    outOfStock: false,
-    color: "blue",
-    quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
-    product_description: 'All-in-one contact lens cleaning solution for soft lenses.',
-    product_properties: [{ label: 'Volume', value: '100ml' }],
-    product_return_policy: '20-day return policy.'
-  },
-  {
-    id: 7,
-    name: "Max OptiFresh Bioplus™",
-    originalPrice: 100.00,
-    salePrice: 100.00,
-    image: product3, // Replace with actual image import
-    outOfStock: false,
-    color: "blue",
-    quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
-    product_description: 'Advanced contact lens solution with bioplus formula for extra comfort.',
-    product_properties: [{ label: 'Volume', value: '120ml' }],
-    product_return_policy: '30-day return policy.'
-  },
-  {
-    id: 8,
-    name: "Lighted Magnifier",
-    originalPrice: 125.00,
-    salePrice: 125.00, 
-    image: product3, // Replace with actual image import
-    outOfStock: true,
-    color: "white",
-    quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
-    product_description: 'Handheld magnifier with built-in light for enhanced visibility.',
-    product_properties: [{ label: 'Material', value: 'Plastic and Glass' }],
-    product_return_policy: '15-day return policy.'
-  }
 ];
 
 

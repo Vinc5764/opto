@@ -9,6 +9,10 @@ import { Input } from "@/components/ui/input";
 import product2 from '@/public/product2.webp'
 import product2a from '@/public/product2.webp'
 import product2b from '@/public/product2.webp'
+import product1 from '@/public/clear1daypack.webp'
+import product3 from '@/public/clear55amonthly.webp'
+import product4 from '@/public/bauschandloft.webp'
+import product5 from '@/public/freshonelook.webp'
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
 import useProductDetailsStore from '@/store';
@@ -63,13 +67,13 @@ const products: Product[] = [
     name: "Clear 1 Day (Pack of 30 Lenses)",
     originalPrice: 180.00,
     salePrice: 160.00,
-    image: product2,
+    image: product1,
     salePercentage: 11,
     outOfStock: false,
     color: "white",
     quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
+    product_image: product1,
+    product_image_shades: [],
     product_description: "Daily disposable contact lenses for clear and crisp vision with superior comfort.",
     product_properties: [{ label: "Type", value: "Daily Disposable" }],
     product_return_policy: "15-day return policy."
@@ -79,13 +83,13 @@ const products: Product[] = [
     name: "Clear55A Monthly (Pack of 6 Lenses)",
     originalPrice: 260.00,
     salePrice: 230.00,
-    image: product2,
+    image: product3,
     salePercentage: 12,
     outOfStock: false,
     color: "blue",
     quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
+    product_image: product3,
+    product_image_shades: [],
     product_description: "Monthly contact lenses designed for long-lasting comfort and clear vision.",
     product_properties: [{ label: "Type", value: "Monthly Disposable" }],
     product_return_policy: "30-day return policy."
@@ -95,13 +99,13 @@ const products: Product[] = [
     name: "Bausch & Lomb SofLens Daily (Pack of 30 Lenses)",
     originalPrice: 240.00,
     salePrice: 200.00,
-    image: product2,
+    image: product4,
     salePercentage: 16,
     outOfStock: false,
     color: "white",
     quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
+    product_image: product4,
+    product_image_shades: [],
     product_description: "Daily lenses providing comfort, clarity, and convenience for everyday wear.",
     product_properties: [{ label: "Type", value: "Daily Disposable" }],
     product_return_policy: "20-day return policy."
@@ -111,78 +115,16 @@ const products: Product[] = [
     name: "Freshlook OneDay Color (Pack of 10 Lenses)",
     originalPrice: 300.00,
     salePrice: 240.00,
-    image: product2,
+    image: product5,
     outOfStock: true,
     color: "blue",
     quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
+    product_image: product5,
+    product_image_shades: [],
     product_description: "Colored daily disposable lenses for a fresh new look every day.",
     product_properties: [{ label: "Type", value: "Daily Disposable" }],
     product_return_policy: "10-day return policy."
   },
-  {
-    id: 6,
-    name: "Proclear 1 Day (Pack of 30 Lenses)",
-    originalPrice: 350.00,
-    salePrice: 310.00,
-    image: product2,
-    salePercentage: 11,
-    outOfStock: false,
-    color: "white",
-    quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
-    product_description: "Comfortable daily contact lenses for all-day hydration and clarity.",
-    product_properties: [{ label: "Type", value: "Daily Disposable" }],
-    product_return_policy: "30-day return policy."
-  },
-  {
-    id: 7,
-    name: "Focus Dailies (Pack of 30 Lenses)",
-    originalPrice: 270.00,
-    salePrice: 230.00,
-    image: product2,
-    salePercentage: 15,
-    outOfStock: false,
-    color: "blue",
-    quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
-    product_description: "Convenient daily disposable contact lenses offering clear vision and comfort.",
-    product_properties: [{ label: "Type", value: "Daily Disposable" }],
-    product_return_policy: "30-day return policy."
-  },
-  {
-    id: 8,
-    name: "Clariti Monthly (Pack of 6 Lenses)",
-    originalPrice: 160.00,
-    salePrice: 160.00,
-    image: product2,
-    outOfStock: false,
-    color: "blue",
-    quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
-    product_description: "Monthly contact lenses designed for comfort, providing crisp vision all month long.",
-    product_properties: [{ label: "Type", value: "Monthly Disposable" }],
-    product_return_policy: "15-day return policy."
-  },
-  {
-    id: 9,
-    name: "Air Optix Aqua (Pack of 6 Lenses)",
-    originalPrice: 400.00,
-    salePrice: 350.00,
-    image: product2,
-    outOfStock: true,
-    color: "white",
-    quantity: 1,
-    product_image: product2,
-    product_image_shades: [product2, product2a, product2b],
-    product_description: "Breathable monthly lenses for superior comfort and clarity.",
-    product_properties: [{ label: "Type", value: "Monthly Disposable" }],
-    product_return_policy: "30-day return policy."
-  }
 ];
 
 

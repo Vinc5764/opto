@@ -7,8 +7,8 @@ import Footer from '@/components/Footer';
 const page = () => {
     const breadcrumbs = [
     { label: 'Home', href: '/' },
-    { label: 'Optical Frames', href: '/optical-frames' },
-    { label: 'Robert and Sons Limited Ghana' }
+    { label: 'Contact Lenses', href: '/product/contactlenses/' },
+    { label: 'Kountry Eyecare Clinic' }
   ];
   return (
     <div>

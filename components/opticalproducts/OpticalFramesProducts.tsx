@@ -12,6 +12,16 @@ import product1b from '@/public/product1b.webp';
 import product4 from '@/public/product4.webp';
 import product4a from '@/public/product4a.webp';
 import product4b from '@/public/product4b.webp';
+import product2 from '@/public/aurorasky.webp';
+import product2a from '@/public/aurorasky2.jpg';
+import product2b from '@/public/aurorasky3.jpg';
+import product2c from '@/public/aurorasky4.jpg';
+import product3 from '@/public/bluelagoon.webp';
+import product3a from '@/public/bluelagoon2.jpg';
+import product3b from '@/public/bluelagoon3.jpg';
+import product5 from '@/public/victoriapeak.webp';
+import product5a from '@/public/victoriapeak2.jpg';
+import product5b from '@/public/victoriapeak3.jpg';
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
 import useProductDetailsStore from '@/store';
@@ -78,94 +88,49 @@ const products: Product[] = [
   },
   {
     id: 3,
-    name: "Niagara Mist",
+    name: "Aurora Sky",
     originalPrice: 397.99,
     salePrice: 305.99,
-    image: product1,
+    image: product2,
     outOfStock: false,
     color: 'blue',
     quantity: 1,
-    product_image: product1,
-    product_image_shades: [product1, product1a, product1b],
+    product_image: product2,
+    product_image_shades: [product2a, product2b, product2c],
     product_description: 'Lightweight, waterproof frame suitable for all occasions, inspired by nature.',
     product_properties: [{ label: 'Material', value: 'Titanium' }],
     product_return_policy: '20-day return policy.'
   },
   {
     id: 4,
-    name: "Savannah Breeze",
+    name: "Blue Lagoon",
     originalPrice: 299.99,
     salePrice: 199.99,
-    image: product4,
+    image: product3,
     outOfStock: false,
-    color: 'green',
+    color:'blue',
     quantity: 1,
-    product_image: product4,
-    product_image_shades: [product4, product4a, product4b],
+    product_image: product3,
+    product_image_shades: [product3, product3a, product3b],
     product_description: 'Stylish, durable, and eco-friendly frame with a touch of elegance for daily wear.',
     product_properties: [{ label: 'Material', value: 'Wood' }],
     product_return_policy: '30-day return policy.'
   },
   {
     id: 5,
-    name: "Sahara Dunes",
+    name: "victoria peak",
     originalPrice: 450.00,
     salePrice: 400.00,
-    image: product1,
+    image: product5,
     outOfStock: true,
-    color: 'yellow',
+    color: 'white',
     quantity: 1,
-    product_image: product1,
-    product_image_shades: [product1, product1a, product1b],
+    product_image: product5,
+    product_image_shades: [product5, product5a, product5b],
     product_description: 'Bold, iconic design perfect for those seeking a statement piece.',
     product_properties: [{ label: 'Material', value: 'Plastic' }],
     product_return_policy: '30-day return policy.'
   },
-  {
-    id: 6,
-    name: "Pacific Wave",
-    originalPrice: 499.99,
-    salePrice: 450.99,
-    image: product4,
-    outOfStock: true,
-    color: 'blue',
-    quantity: 1,
-    product_image: product4,
-    product_image_shades: [product4, product4a, product4b],
-    product_description: 'Classic, timeless frame with a unique wave-inspired design for everyday wear.',
-    product_properties: [{ label: 'Material', value: 'Carbon Fiber' }],
-    product_return_policy: '30-day return policy.'
-  },
-  {
-    id: 7,
-    name: "Rainforest Glimmer",
-    originalPrice: 350.99,
-    salePrice: 300.99,
-    image: product1,
-    outOfStock: false,
-    color: 'green',
-    quantity: 1,
-    product_image: product1,
-    product_image_shades: [product1, product1a, product1b],
-    product_description: 'Vibrant, unique, and eco-friendly design inspired by nature’s beauty.',
-    product_properties: [{ label: 'Material', value: 'Acetate' }],
-    product_return_policy: '25-day return policy.'
-  },
-  {
-    id: 8,
-    name: "Golden Mirage",
-    originalPrice: 320.99,
-    salePrice: 280.99,
-    image: product4,
-    outOfStock: false,
-    color: 'gold',
-    quantity: 1,
-    product_image: product4,
-    product_image_shades: [product4, product4a, product4b],
-    product_description: 'Luxurious and shiny gold frame, perfect for formal events or standout occasions.',
-    product_properties: [{ label: 'Material', value: 'Gold Plated' }],
-    product_return_policy: '30-day return policy.'
-  }
 ];
 
 

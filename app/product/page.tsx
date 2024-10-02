@@ -7,8 +7,8 @@ import React from 'react'
 const page = () => {
      const breadcrumbs = [
     { label: 'Home', href: '/' },
-    { label: 'Optical Frames', href: '/optical-frames' },
-    { label: 'Robert and Sons Limited Ghana' }
+    { label: 'Product Details', href: '/product/' },
+    { label: 'Kountry Eyecare Clinic' }
   ];
   return (
     <div>

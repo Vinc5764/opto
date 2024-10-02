@@ -1,5 +1,8 @@
 import React from 'react';
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter } from 'lucide-react';
+import Link from 'next/link';
+import optologo from '@/public/logoOpto.jpg';
+import Image from 'next/image';
 
 const Footer = () => {
   return (
@@ -9,16 +12,12 @@ const Footer = () => {
           {/* Company Info */}
           <div>
             <div className="flex items-center mb-4">
-              <div className="text-[#36accb] mr-2">
-                <svg className="w-8 h-8" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6zm0 10c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
-                </svg>
-              </div>
-              <h2 className="text-2xl font-bold text-gray-900">OPTICS</h2>
+              <Link href="/" className="flex-shrink-0 flex items-center">
+            <Image src={optologo} alt="Optics Logo" className="w-24" />
+          </Link>
             </div>
             <p className="text-gray-600 mb-4">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus,
-              luctus nec ullamcorper mattis, pulvinar dapibus leo.
+              At Kountry Eyecare Clinic, we are dedicated to providing exceptional eye care services tailored to your individual needs. 
             </p>
           </div>
 
@@ -48,24 +47,39 @@ const Footer = () => {
             <ul className="space-y-2 text-gray-600">
               <li className="flex items-center">
                 <Phone size={18} className="mr-2 text-[#36accb]" />
-                +12 3456 7890
+                +233 548 481 866 +233 548 503 833
               </li>
               <li className="flex items-center">
                 <Mail size={18} className="mr-2 text-[#36accb]" />
-                optics@example.net
+                kountryeyecare@gmail.com
               </li>
               <li className="flex items-center">
                 <MapPin size={18} className="mr-2 text-[#36accb]" />
-                593 Where Road, London
+                Goil Fueling Station  , Spintex Road
               </li>
             </ul>
             <div className="flex space-x-4 mt-4">
-              {[Facebook, Instagram, Twitter, Youtube].map((Icon, index) => (
-                <a key={index} href="#" className="text-[#36accb] hover:text-blue-600">
-                  <Icon size={24} />
-                </a>
-              ))}
-            </div>
+  {[Facebook, Instagram, Twitter].map((Icon, index) => (
+    <a
+      key={index}
+      href={
+        index === 0
+          ? "https://www.facebook.com/share/GHbzVCWJ4DMbfNQZ/?mibextid=LQQJ4d"
+          : index === 1
+          ? "https://www.instagram.com/kountryeyecare?igsh=djd1cHJ0b2NpdWhh"
+          : index === 2
+          ? "https://x.com/kountryeyecare?s=11&t=jdMw6OvVfvaMi3dkuaNLcA"
+          : ""
+      }
+      className="text-[#36accb] "
+      target="_blank" // Opens the link in a new tab
+      rel="noopener noreferrer" // Ensures security when opening new tabs
+    >
+      <Icon size={24} />
+    </a>
+  ))}
+</div>
+
           </div>
         </div>
 

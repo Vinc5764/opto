@@ -23,9 +23,9 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4 text-gray-900">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4 text-gray-900">Services</h3>
             <ul className="space-y-2">
-              {['About Us', 'Our Services', 'Contact Us', 'Our Doctors', 'Pricing'].map((item, index) => (
+              {['General Eyecare', 'Pediatric Optometry', 'Geriatic Optometry', 'OCT/VFT', 'Contact Lens Fitting'].map((item, index) => (
                 <li key={index}><a href="#" className="text-gray-600 hover:text-[#36accb]">{item}</a></li>
               ))}
             </ul>
@@ -86,7 +86,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-600 text-sm mb-4 md:mb-0">
-            Copyright © 2024 Optics, All rights reserved. Present by CreedCreatives
+            Copyright © 2024 KountryEyeCare, All rights reserved.
           </p>
           <div className="space-x-4">
             <a href="#" className="text-gray-600 hover:text-[#36accb] text-sm">Terms & Service</a>

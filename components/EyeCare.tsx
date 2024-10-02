@@ -39,9 +39,9 @@ const EyeCareExperts = () => {
             <p className="text-gray-600 mb-6">
               Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo.
             </p>
-            <button className="bg-[#36accb] text-white font-semibold py-2 px-6 rounded-md hover:bg-blue-700 transition duration-300">
-              Discover More
-            </button>
+            <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
+    Book Consultation
+  </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {doctors.map((doctor, index) => (

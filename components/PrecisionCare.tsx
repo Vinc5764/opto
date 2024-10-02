@@ -3,60 +3,67 @@ import { Star } from 'lucide-react';
 import Image from 'next/image';
 import doctor1 from '@/public/optologo3.jpg';
 import doctor2 from '@/public/optologo2.png';
+import Link from 'next/link';
 
 const EyeCareLandingPage = () => {
   return (
-    <div className="bg-blue-50 p-8 font-sans">
+    <div className="bg-gradient-to-r from-[#e0f7fa] to-[#b2ebf2] p-12 font-sans">
       <div className="max-w-6xl mx-auto">
-        <header className="mb-8">
-          <h2 className="text-[#36accb] text-xl font-semibold">Your Eye Health Partners</h2>
+        <header className="mb-10 text-center">
+          <h2 className="text-2xl font-bold text-[#36accb]">Your Eye Health Partners</h2>
         </header>
 
-        <main className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <main className="grid grid-cols-1 md:grid-cols-2 gap-12">
+          {/* Left Side - Main Content */}
           <div>
-            <h1 className="text-4xl md:text-5xl font-bold text-[#36accb] mb-4">
+            <h1 className="text-5xl md:text-6xl font-extrabold text-[#36accb] mb-6 leading-tight">
               Precision Care<br />for Every Eye
             </h1>
-            <p className="text-gray-600 mb-6">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer eu molestie odio. Vestibulum cursus nisi sed imperdiet ultricies. Nullam tellus sapien, efficitur eget ligula at.
+            <p className="text-gray-700 text-lg mb-8">
+              Get the best care for your eyes with our team of experienced professionals. From comprehensive eye exams to specialized treatments, we prioritize your vision health.
             </p>
             <div className="space-x-4">
-              <button className="bg-white text-[#36accb] px-6 py-2 rounded-md hover:bg-white transition">
-                Book an Appointment
-              </button>
-              
+             <Link  href='/book'><button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
+    Book Consultation
+  </button></Link>
             </div>
           </div>
 
-          <div className="space-y-6 md:flex">
-            <div className="gap-8 inline-flex flex-col">
-              <div className="bg-white p-4 rounded-lg shadow">
-                <div className="flex items-center mb-2">
+          {/* Right Side - Testimonials and Images */}
+          <div className="space-y-8 md:flex md:space-y-0 md:space-x-8">
+            <div className="flex flex-col space-y-8">
+              {/* Rating Box */}
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center mb-3">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className={`w-5 h-5 ${i < 4 ? 'text-yellow-400' : 'text-yellow-200'}`} fill="currentColor" />
+                    <Star key={i} className={`w-6 h-6 ${i < 4 ? 'text-yellow-500' : 'text-gray-300'}`} fill="currentColor" />
                   ))}
                 </div>
-                <h3 className="font-bold text-[#36accb] text-lg">4.5/5 Average Rating</h3>
+                <h3 className="text-[#004d40] text-xl font-semibold">4.5/5 Average Rating</h3>
                 <p className="text-sm text-gray-600">Based on 7,500+ reviews of Our Satisfied Patients in 2024</p>
               </div>
 
-              <div className="">
-                <Image src={doctor1} alt="Eye examination" className="w-full rounded-lg" />
+              {/* Doctor Image 1 */}
+              <div className="rounded-lg overflow-hidden">
+                <Image src={doctor1} alt="Eye examination" className="object-cover w-full h-64" />
               </div>
             </div>
 
-            <div className="flex flex-col gap-y-24">
-              <div className="inline-flex">
-                <Image src={doctor2} alt="Doctor" className="float-right w-[40vh] md:mt-[-7rem] ml-4 rounded-lg" />
+            <div className="flex flex-col space-y-16 justify-between">
+              {/* Doctor Image 2 */}
+              <div className="relative">
+                <Image src={doctor2} alt="Doctor" className="rounded-lg object-cover w-full h-[300px] md:h-[350px]" />
               </div>
-              <div className="bg-white flex p-4 ml-3 mb-[5rem] rounded-lg shadow">
-                <div className="space-y-2">
-                  <div className="text-4xl font-bold text-[#36accb]">10+</div>
-                  <div>Years of Experience</div>
+
+              {/* Experience & Location Stats */}
+              <div className="bg-white flex justify-around p-6 rounded-lg shadow-lg">
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-[#00796b]">10+</div>
+                  <p className="text-gray-600">Years of Experience</p>
                 </div>
-                <div className="ml-8 space-y-2">
-                  <div className="text-4xl font-bold text-[#36accb]">15+</div>
-                  <div>Location Clinic</div>
+                <div className="text-center">
+                  <div className="text-4xl font-bold text-[#00796b]">15+</div>
+                  <p className="text-gray-600">Location Clinics</p>
                 </div>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Phone, Mail, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import AppointmentForm from './Bookings';
 
 const AppointmentBooking = () => {
   return (
@@ -7,7 +8,7 @@ const AppointmentBooking = () => {
       {/* Left Column */}
       <div className="md:w-1/2">
         <h3 className="text-[#36accb] font-semibold mb-2">Make an Appointment</h3>
-        <h1 className="text-4xl font-bold mb-4">Book Your Visit, Make an Appointment Now</h1>
+        <h1 className="text-2xl font-bold  text-gray-800 mb-4">Book Your Visit, Make an Appointment Now</h1>
         <p className="text-gray-600 mb-8">
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam iaculis ornare lacus, et porttitor dui accumsan non. Ut vitae rutrum libero, id mollis dui. Aliquam erat volutpat.
         </p>
@@ -20,7 +21,7 @@ const AppointmentBooking = () => {
             </div>
             <div>
               <p className="font-semibold">Call Center</p>
-              <p>+12 3456 7890</p>
+              <p>+233 548 481 866 +233 548 503 833</p>
             </div>
           </div>
           <div className="flex items-center">
@@ -29,12 +30,12 @@ const AppointmentBooking = () => {
             </div>
             <div>
               <p className="font-semibold">Email Address</p>
-              <p>optics@example.net</p>
+              <p>kountryeyecare@gmail.com</p>
             </div>
           </div>
         </div>
         
-        <div className="mt-8">
+        {/* <div className="mt-8">
           <p className="font-semibold mb-2">Social Media</p>
           <div className="flex space-x-4">
             <Facebook className="text-[#36accb]" size={24} />
@@ -42,12 +43,12 @@ const AppointmentBooking = () => {
             <Twitter className="text-[#36accb]" size={24} />
             <Youtube className="text-red-600" size={24} />
           </div>
-        </div>
+        </div> */}
       </div>
       
       {/* Right Column - Form */}
-      <div className="md:w-1/2 bg-[#36accb] p-6 rounded-lg">
-        <form className="space-y-4">
+      <div className="md:w-1/2  p-6 rounded-lg">
+        {/* <form className="space-y-4">
           <div>
             <label htmlFor="name" className="block text-white mb-1 font-semibold">Your Name *</label>
             <input type="text" id="name" placeholder="Your name" className="w-full p-2 border rounded" />
@@ -81,8 +82,10 @@ const AppointmentBooking = () => {
           <button type="submit" className="bg-[#36accb] text-white py-2 px-4 rounded hover:bg-blue-600 transition duration-300">
             Make an Appointment
           </button>
-        </form>
+        </form> */}
+        <AppointmentForm/>
       </div>
+      
     </div>
   );
 };

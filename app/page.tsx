@@ -24,7 +24,7 @@ const page = () => {
       <EyeCareExperts />
       <TestimonialsReviews />
       <AppointmentBooking />
-      <BlogSection />
+      {/* <BlogSection /> */}
       <NewsletterSubscription />
       <Footer /> 
     </div>

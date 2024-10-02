@@ -11,16 +11,14 @@ export const POST = async (req: NextRequest) => {
   try {
     // Parse incoming JSON data from the request body
     const requestData = await req.json();
-    const { schoolName, contactPerson, email, whatsapp} = requestData;
+    const { amount,email,phone,address} = requestData;
 
 
-    const amount = 5000 * 100; // Convert GHC to the smallest unit
+    const amt = amount * 100; // Convert GHC to the smallest unit
 
     // Prepare payment metadata
     const metadata = {
-      schoolName,
-      contactPerson,
-      whatsapp,
+      email,phone,address,amt
     };
 
     // Initialize payment with Paystack
@@ -28,7 +26,7 @@ export const POST = async (req: NextRequest) => {
       "https://api.paystack.co/transaction/initialize",
       {
         email,
-        amount,
+        amt,
         metadata,
         currency: "GHS", // Set the currency to Ghanaian Cedi
         channels: ["card", "mobile_money"],

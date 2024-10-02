@@ -47,6 +47,9 @@ export default function OpticsNavbar() {
             <Link href={`/product/contactlenses`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
               Contact Lenses
             </Link>
+            <Link href={`/product/sunglasses`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
+              Sun glasses
+            </Link>
             <Link href={`/product/accessories`} className="text-[#36accb] inline-flex items-center px-1 pt-1 text-sm font-medium">
               Accessories
             </Link>
@@ -152,6 +155,9 @@ export default function OpticsNavbar() {
             </Link>
             <Link href="/product/contactlenses" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Contact Lenses
+            </Link>
+             <Link href="/product/sunglasses" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
+              Sun glasses
             </Link>
             <Link href="/product/accessories" className="block text-blue-900 text-lg mb-4" onClick={toggleSidebar}>
               Accessories

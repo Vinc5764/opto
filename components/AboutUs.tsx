@@ -50,9 +50,9 @@ const AboutUs = () => {
           </div>
 
           <div className="mt-8">
-            <button className="bg-[#36accb] text-white px-6 py-3 rounded-md hover:bg-[#36accb] transition">
-              Discover More
-            </button>
+            <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
+    Explore Products
+  </button>
           </div>
         </div>
       </div>

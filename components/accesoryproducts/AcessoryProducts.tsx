@@ -7,8 +7,13 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import product3 from '@/public/product3.webp'
-import product3a from '@/public/product3.webp'
-import product3b from '@/public/product3.webp'
+import product1 from '@/public/elasticcords.webp'
+import product1a from '@/public/elasticcords2.jpg'
+import product1b from '@/public/elasticcords3.jpg'
+import product2 from '@/public/plasticcords.webp'
+import product4 from '@/public/blackclothcord.webp'
+import product4a from '@/public/blackclothcord2.jpg'
+import product5 from '@/public/multicleaner.webp'
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
 import useProductDetailsStore from '@/store';
@@ -52,7 +57,7 @@ const products: Product[] = [
     color: "blue",
     quantity: 1,
     product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
+    product_image_shades: [product1,product2,product1a,product1b],
     product_description: 'Strong, versatile nylon cord suitable for a variety of uses.',
     product_properties: [{ label: 'Material', value: 'Nylon' }],
     product_return_policy: '30-day return policy.'
@@ -62,12 +67,12 @@ const products: Product[] = [
     name: "Elastic Cord",
     originalPrice: 125.00,
     salePrice: 125.00,
-    image: product3, // Replace with actual image import
+    image: product1, // Replace with actual image import
     outOfStock: false,
     color: "blue",
     quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
+    product_image: product1,
+    product_image_shades: [product1, product1a, product1b],
     product_description: 'Durable elastic cord with great flexibility and stretch.',
     product_properties: [{ label: 'Material', value: 'Elastic' }],
     product_return_policy: '30-day return policy.'
@@ -77,12 +82,12 @@ const products: Product[] = [
     name: "Plastic Cord",
     originalPrice: 125.00,
     salePrice: 125.00,
-    image: product3, // Replace with actual image import
+    image: product2, // Replace with actual image import
     outOfStock: false,
     color: "purple",
     quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
+    product_image: product2,
+    product_image_shades: [],
     product_description: 'Lightweight plastic cord, ideal for a range of projects.',
     product_properties: [{ label: 'Material', value: 'Plastic' }],
     product_return_policy: '30-day return policy.'
@@ -92,12 +97,12 @@ const products: Product[] = [
     name: "Black Cloth Cord",
     originalPrice: 55.00,
     salePrice: 55.00,
-    image: product3, // Replace with actual image import
+    image: product4, // Replace with actual image import
     outOfStock: true,
     color: "black",
     quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
+    product_image: product4,
+    product_image_shades: [product4, product4a],
     product_description: 'Stylish and durable black cloth cord for daily use.',
     product_properties: [{ label: 'Material', value: 'Cloth' }],
     product_return_policy: '30-day return policy.'
@@ -107,12 +112,12 @@ const products: Product[] = [
     name: "Multiclean Lens Cleaner",
     originalPrice: 65.00,
     salePrice: 65.00,
-    image: product3, // Replace with actual image import
+    image: product5, // Replace with actual image import
     outOfStock: false,
     color: "red",
     quantity: 1,
-    product_image: product3,
-    product_image_shades: [product3, product3a, product3b],
+    product_image: product5,
+    product_image_shades: [],
     product_description: 'Effective lens cleaner for all types of glasses and optics.',
     product_properties: [{ label: 'Material', value: 'Liquid' }],
     product_return_policy: '15-day return policy.'

@@ -1,6 +1,7 @@
 
 import mongoose from "mongoose";
 
+
 const MONGODB_URL = "mongodb+srv://simonadjei70:fEAzRvC46lfg3rVx@focus.kv1prmo.mongodb.net/?retryWrites=true&w=majority&appName=focus";
 console.log(MONGODB_URL);
 

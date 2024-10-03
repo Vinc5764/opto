@@ -1,8 +1,17 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
 
-const AppointmentForm = () => {
-  const [formData, setFormData] = useState({
+type FormData = {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  date: string;
+  time: string;
+};
+
+const AppointmentForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
     phone: '',
@@ -11,15 +20,15 @@ const AppointmentForm = () => {
     time: '',
   });
 
-  const [loading, setLoading] = useState(false); // Loading state for submission
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+  const [loading, setLoading] = useState<boolean>(false); // Loading state for submission
+  const [showSuccessModal, setShowSuccessModal] = useState<boolean>(false);
+  const [errorMessage, setErrorMessage] = useState<string>('');
 
   // Mock list of unavailable dates (in 'YYYY-MM-DD' format)
-  const unavailableDates = ['2024-10-10', '2024-10-15', '2024-10-20'];
+  const unavailableDates: string[] = ['2024-10-10', '2024-10-15', '2024-10-20'];
 
   // State to hold available dates
-  const [availableDates, setAvailableDates] = useState([]);
+  const [availableDates, setAvailableDates] = useState<string[]>([]);
 
   useEffect(() => {
     // Mock: Load unavailable dates from an API (can replace with a real API call)
@@ -27,18 +36,18 @@ const AppointmentForm = () => {
   }, []);
 
   // Helper to check if a date is unavailable
-  const isDateUnavailable = (date) => {
+  const isDateUnavailable = (date: string): boolean => {
     return unavailableDates.includes(date);
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setErrorMessage(''); // Reset the error message before a new request.
     setLoading(true); // Show loading state
@@ -179,9 +188,9 @@ const AppointmentForm = () => {
               required
               min={new Date().toISOString().split('T')[0]} // Disallow past dates
               onInput={(e) => {
-                if (isDateUnavailable(e.target.value)) {
+                if (isDateUnavailable(e.currentTarget.value)) {
                   alert('This date is unavailable. Please choose another date.');
-                  e.target.value = '';
+                  e.currentTarget.value = '';
                 }
               }}
             />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Phone, Mail, Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+import { Phone, Mail} from 'lucide-react';
 import AppointmentForm from './Bookings';
 
 const AppointmentBooking = () => {

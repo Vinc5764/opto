@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import {  useState, ChangeEvent } from 'react'
 import { useStore } from '@/store'
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -26,7 +26,7 @@ export default function CheckoutPage() {
   const cartItems = useStore((state) => state.cartItems)
   const subtotalPrice = useStore((state) => state.totalPrice)
 
-  const handleInputChange = (e) => {
+  const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setDeliveryDetails((prevState) => ({
       ...prevState,

@@ -22,7 +22,7 @@ const TestimonialCard: React.FC<TestimonialProps> = ({ quote, name, role, imageS
         />
       ))}
     </div>
-    <p className="text-white italic text-lg mb-6 leading-relaxed">"{quote}"</p>
+    <p className="text-white italic text-lg mb-6 leading-relaxed">&apos;{quote}&apos;</p>
     <div className="flex items-center">
       <Image src={imageSrc} alt={name} className="w-14 h-14 rounded-full mr-6 object-cover border-2 border-white" />
       <div>

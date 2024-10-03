@@ -1,6 +1,6 @@
 import AboutUs from '@/components/AboutUs'
 import FlexibleAppointmentSection from '@/components/Appointment'
-import BlogSection from '@/components/BlogSection'
+// import BlogSection from '@/components/BlogSection'
 import AppointmentBooking from '@/components/Booking'
 import EyeCareExperts from '@/components/EyeCare'
 import Footer from '@/components/Footer'

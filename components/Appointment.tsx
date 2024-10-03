@@ -1,5 +1,5 @@
 import React from 'react';
-import { Play } from 'lucide-react';
+// import { Play } from 'lucide-react';
 import Image from 'next/image';
 import logo from '@/public/optologo3.jpg'
 import Link from 'next/link';

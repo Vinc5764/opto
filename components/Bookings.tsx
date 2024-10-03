@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, ChangeEvent, FormEvent } from 'react';
+import React, { useState,  ChangeEvent, FormEvent } from 'react';
 
 type FormData = {
   name: string;
@@ -28,12 +28,12 @@ const AppointmentForm: React.FC = () => {
   const unavailableDates: string[] = ['2024-10-10', '2024-10-15', '2024-10-20'];
 
   // State to hold available dates
-  const [availableDates, setAvailableDates] = useState<string[]>([]);
+  // const [availableDates, setAvailableDates] = useState<string[]>([]);
 
-  useEffect(() => {
-    // Mock: Load unavailable dates from an API (can replace with a real API call)
-    setAvailableDates(unavailableDates);
-  }, []);
+  // useEffect(() => {
+  //   // Mock: Load unavailable dates from an API (can replace with a real API call)
+  //   setAvailableDates(unavailableDates);
+  // }, []);
 
   // Helper to check if a date is unavailable
   const isDateUnavailable = (date: string): boolean => {

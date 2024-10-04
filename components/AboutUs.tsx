@@ -30,9 +30,10 @@ const AboutUs = () => {
           <h2 className="text-[#36accb] text-lg font-semibold">About Us</h2>
           <h1 className="text-4xl font-bold text-gray-900 mt-2">Committed to Offering You the Best in Vision Health</h1>
           <div className="mt-4">
-            <span className="bg-[#36accb] bg-opacity-10 text-[#36accb] px-3 py-1 rounded-full text-sm mr-2">Pediatric Eye Care</span>
-            <span className="bg-[#36accb] bg-opacity-10 text-[#36accb] px-3 py-1 rounded-full text-sm mr-2">Senior Eye Care</span>
+            <span className="bg-[#36accb] bg-opacity-10 text-[#36accb] px-3 py-1 rounded-full text-sm mr-2">General Eyecare</span>
+            <span className="bg-[#36accb] bg-opacity-10 text-[#36accb] px-3 py-1 rounded-full text-sm mr-2">Geriatic Optometry</span>
             <span className="bg-[#36accb] bg-opacity-10 text-[#36accb] px-3 py-1 rounded-full text-sm">Contact Lens Fitting & Care</span>
+            
           </div>
           <p className="text-gray-600 mt-4">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla nisl urna, dictum vel cursus at, bibendum ac lectus. Nam purus libero, venenatis vel tempus vel, porttitor nec odio.

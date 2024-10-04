@@ -1,11 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import User from '../model/order.model';
-import { MailerSend, Recipient, EmailParams } from 'mailersend';
-import { connectToDB } from '@/lib/connect';
+// import User from '../model/order.model';
+// import { MailerSend, Recipient, EmailParams } from 'mailersend';
+// import { connectToDB } from '@/lib/connect';
 
-const mailersend = new MailerSend({
-  apiKey: process.env.MAILERSEND_API_KEY, // Use environment variable for the API key
-});
+// const mailersend = new MailerSend({
+//   apiKey: process.env.MAILERSEND_API_KEY, // Use environment variable for the API key
+// });
 
 export const POST = async (req: NextRequest) => {
   try {
@@ -27,16 +27,16 @@ export const POST = async (req: NextRequest) => {
     // Check if the appointment time slot is already taken
   
     // Create a new user appointment in the database
-    const newUser = new User({
-      name,
-      email,
-      phone,
-      service,
-      date,
-      time,
-    });
+    // const newUser = new User({
+    //   name,
+    //   email,
+    //   phone,
+    //   service,
+    //   date,
+    //   time,
+    // });
 
-    
+
 
     // Save the appointment to the database
     // const savedUser = await newUser.save();

@@ -2,6 +2,7 @@ import React from 'react';
 import { Star } from 'lucide-react';
 import Image, { StaticImageData } from 'next/image';
 import logo from '@/public/optologo10.jpg';
+import Link from 'next/link';
 
 interface TestimonialProps{
   quote: string;
@@ -89,9 +90,9 @@ const TestimonialsReviews = () => {
     <ProgressBar label="Doctor Rating" percentage={95} />
   </div>
 
-  <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
+   <Link  href="/product/sunglasses">   <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
     Explore Products
-  </button>
+  </button></Link>
 </div>
 
         </div>

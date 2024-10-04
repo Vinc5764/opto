@@ -1,6 +1,6 @@
 'use client'
 
-import {  useState, ChangeEvent } from 'react'
+import { useState, ChangeEvent } from 'react'
 import { useStore } from '@/store'
 import { Input } from "@/components/ui/input"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import Image from 'next/image'
-// import { toast } from 'react-toastify'
 
 export default function CheckoutPage() {
   const [deliveryDetails, setDeliveryDetails] = useState({
@@ -19,14 +18,15 @@ export default function CheckoutPage() {
     city: '',
     postalCode: '',
     phone: '',
+    email: '', 
   })
 
-  const [saveInfo, setSaveInfo] = useState(false)
+  const [loading, setLoading] = useState(false) // Loading state
 
   const cartItems = useStore((state) => state.cartItems)
   const subtotalPrice = useStore((state) => state.totalPrice)
 
-  const handleInputChange = (e:ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
     setDeliveryDetails((prevState) => ({
       ...prevState,
@@ -35,6 +35,7 @@ export default function CheckoutPage() {
   }
 
   const handleSubmit = async () => {
+    setLoading(true) // Start loading
     // Prepare data to send to backend
     const payload = {
       deliveryDetails,
@@ -43,7 +44,7 @@ export default function CheckoutPage() {
     }
 
     try {
-      const response = await fetch('/api/checkout', {
+      const response = await fetch('https://kountryeyecare.vercel.app/api/payment', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -52,13 +53,22 @@ export default function CheckoutPage() {
       })
 
       if (response.ok) {
-        // toast.success('Order placed successfully!')
-        // Handle success (e.g., redirect to order confirmation page)
+        const data = await response.json()
+
+        // Check if the payment URL is available
+        if (data?.paystackUrl) {
+          window.location.href = data.paystackUrl // Redirect to Paystack
+        } else {
+          // Handle error when payment URL is not returned
+          console.error('Payment URL not received.')
+        }
       } else {
-        // toast.error('Failed to place the order.')
+        console.error('Failed to place the order.')
       }
     } catch (error) {
-      // toast.error('Error placing the order.')
+      console.error('Error placing the order.', error)
+    } finally {
+      setLoading(false) // End loading
     }
   }
 
@@ -69,7 +79,7 @@ export default function CheckoutPage() {
         <Input
           type="text"
           name="phone"
-          placeholder="Email or mobile phone number"
+          placeholder="Mobile phone number"
           value={deliveryDetails.phone}
           onChange={handleInputChange}
           className="mb-4"
@@ -90,7 +100,6 @@ export default function CheckoutPage() {
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="ghana">Ghana</SelectItem>
-            {/* Add more countries as needed */}
           </SelectContent>
         </Select>
         <div className="grid grid-cols-2 gap-4 mb-4">
@@ -128,17 +137,21 @@ export default function CheckoutPage() {
             onChange={handleInputChange}
           />
         </div>
-        <Checkbox
-          id="save-info"
-          checked={saveInfo}
-          onCheckedChange={() => setSaveInfo((prev) => !prev)}
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={deliveryDetails.email}
+          onChange={handleInputChange}
           className="mb-4"
-        >
-          <span className="ml-2">Save this information for next time</span>
-        </Checkbox>
+        />
 
-        <Button className="w-full mt-8 bg-red-500 hover:bg-red-600 text-white" onClick={handleSubmit}>
-          Pay now
+        <Button 
+          className="w-full mt-8 bg-red-500 hover:bg-red-600 text-white"
+          onClick={handleSubmit}
+          disabled={loading} // Disable button during loading
+        >
+          {loading ? 'Processing...' : 'Pay now'} {/* Show loading text */}
         </Button>
       </div>
 

@@ -138,6 +138,7 @@ export default function OpticalFramesProducts() {
   const [itemsToShow, setItemsToShow] = useState<number>(12);
   const { addToCart } = useStore();
   const { setProductDetails } = useProductDetailsStore();
+  const [showPopup, setShowPopup] = useState<boolean>(false);
   
   
   // Access the global addToCart function
@@ -171,6 +172,11 @@ export default function OpticalFramesProducts() {
 
   // Sort and limit the filtered products based on the current itemsToShow count
   const sortedProducts = handleSort(filteredProducts).slice(0, itemsToShow);
+  const handleAddToCart = (product: Product) => {
+    addToCart(product);
+    setShowPopup(true);
+    setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
+  };
 
   const loadMore = () => {
     setItemsToShow(prev => prev + 12); // Increase the number of items shown by 12
@@ -178,6 +184,11 @@ export default function OpticalFramesProducts() {
 
   return (
     <div className="container mx-auto px-4 py-8">
+      {showPopup && (
+        <div className="fixed z-[100] top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-md transition-all">
+          <p>Added to cart successfully!</p>
+        </div>
+      )}
       <div className="flex flex-col md:flex-row gap-8">
         {/* Sidebar */}
         <div className="w-full md:w-1/4">
@@ -300,7 +311,7 @@ export default function OpticalFramesProducts() {
                   <Button
                     variant="outline"
                     size="icon"
-                    onClick={() => addToCart(product)} // Trigger addToCart with product
+                    onClick={() => handleAddToCart(product)}  // Trigger addToCart with product
                   >
                     <ShoppingCart className="h-4 w-4" />
                   </Button>

@@ -15,7 +15,7 @@ export default function CheckoutPage() {
     country: 'ghana',
     firstName: '',
     lastName: '',
-    address: '',
+    address: '', 
     city: '',
     postalCode: '',
     phone: '',
@@ -108,7 +108,7 @@ export default function CheckoutPage() {
           />
         </div>
         <Input
-          placeholder="Address"
+          placeholder="Address" 
           name="address"
           value={deliveryDetails.address}
           onChange={handleInputChange}

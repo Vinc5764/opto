@@ -33,11 +33,11 @@ const userSchema = new Schema({
       'Binocular Vision'
     ],
   },
-  appointmentDate: {
+  date: {
     type: Date,
     required: true,
   },
-  appointmentTime: {
+  time: {
     type: String,
     required: true,
   },
@@ -53,6 +53,6 @@ const userSchema = new Schema({
 
 // Middleware to update the `updatedAt` field on updates
 
-const User = models.Users || model("Users", userSchema);
+const User = models.User || model("User", userSchema);
 export default User
 

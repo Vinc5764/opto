@@ -2,6 +2,7 @@ import Image from 'next/image';
 import doctorImage4 from '@/public/optologo4.jpg'; // Replace with actual image paths
 import doctorImage5 from '@/public/optologo5.jpg'; // Replace with actual image paths
 import doctorImage6 from '@/public/optologo6.jpg'; // Replace with actual image paths
+import Link from 'next/link';
 // import signature from '@/public/signature.png'; // Replace with actual image paths
 
 const AboutUs = () => {
@@ -50,9 +51,9 @@ const AboutUs = () => {
           </div>
 
           <div className="mt-8">
-            <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
+         <Link  href="/product/opticalframes">   <button className="bg-gradient-to-r from-[#36accb] to-[#4ecdc4] text-white font-semibold py-3 px-8 rounded-lg shadow-md hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 mt-8">
     Explore Products
-  </button>
+  </button></Link>
           </div>
         </div>
       </div>

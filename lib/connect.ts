@@ -22,7 +22,7 @@ export const connectToDB = async () => {
 
   cached.promise =
     cached.promise ||
-    mongoose.connect(MONGODB_URL, {
+    mongoose.connect('mongodb+srv://simonadjei70:ZHGEos0zxxZVNcBJ@cluster0.zjh2f.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0', {
       dbName: "testing-mentee",
       bufferCommands: false,
       connectTimeoutMS: 40000,

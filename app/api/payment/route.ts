@@ -1,32 +1,48 @@
-// Update to the new Register model
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import axios from "axios";
+import { connectToDB } from "@/lib/connect";
 
 // Replace with your Paystack secret key
-const PAYSTACK_SECRET_KEY = "sk_live_58fe2547f764f61e63084f063f7f1af22701774d";
+const PAYSTACK_SECRET_KEY = process.env.PAYSTACK_SECRET_KEY || "sk_live_58fe2547f764f61e63084f063f7f1af22701774d";
 
 // POST: Create a new school registration request and initialize payment
 export const POST = async (req: NextRequest) => {
- 
   try {
     // Parse incoming JSON data from the request body
+    await connectToDB();
     const requestData = await req.json();
-    const { amount,email,phone,address} = requestData;
+    const { subtotalPrice,  phone, address, cartItems, deliveryDetails } = requestData;
 
 
-    const amt = amount * 100; // Convert GHC to the smallest unit
+    const amt = subtotalPrice * 100; // Convert GHC to the smallest unit
 
-    // Prepare payment metadata
+    // Extract product names from cartItems
+    const productNames = cartItems.map((item:any) => item.name);
+
+    // Prepare payment metadata, including cart items and delivery details
     const metadata = {
-      email,phone,address,amt
+      
+      phone,
+      address,
+      amt,
+      productNames, // List of product names from the cart
+      deliveryDetails: {
+        country: deliveryDetails.country,
+        firstName: deliveryDetails.firstName,
+        lastName: deliveryDetails.lastName,
+        address: deliveryDetails.address,
+        city: deliveryDetails.city,
+        postalCode: deliveryDetails.postalCode,
+      },
     };
 
     // Initialize payment with Paystack
     const paymentResponse = await axios.post(
       "https://api.paystack.co/transaction/initialize",
       {
-        email,
-        amt,
+        email:deliveryDetails.email,
+        amount: amt,
         metadata,
         currency: "GHS", // Set the currency to Ghanaian Cedi
         channels: ["card", "mobile_money"],

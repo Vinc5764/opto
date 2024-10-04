@@ -54,7 +54,7 @@ const AppointmentForm: React.FC = () => {
 
     try {
       // Simulate sending data to the backend
-      const response = await fetch('/api/appointments', {
+      const response = await fetch('https://kountryeyecare.vercel.app/api/book', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

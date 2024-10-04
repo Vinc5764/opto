@@ -43,11 +43,11 @@ export const POST = async (req: NextRequest) => {
     ];
 
     // Admin email (assuming it's hardcoded for now or can be set via env)
-    const adminRecipient = [
-      {
-        email: process.env.ADMIN_EMAIL || 'admin@example.com', // Set the admin email
-      }
-    ];
+    // const adminRecipient = [
+    //   {
+    //     email: process.env.ADMIN_EMAIL || 'admin@example.com', // Set the admin email
+    //   }
+    // ];
 
     // Send email to user (confirmation)
     await client.bulk.send({
@@ -59,13 +59,13 @@ export const POST = async (req: NextRequest) => {
     });
 
     // Send email to admin (notification)
-    await client.bulk.send({
-      from: sender,
-      to: adminRecipient,
-      subject: 'New Appointment Created',
-      text: `A new appointment has been created by ${name} for ${service} on ${date} at ${time}. Please check the appointment details.`,
-      category: 'Appointment Notification',
-    });
+    // await client.bulk.send({
+    //   from: sender,
+    //   to: adminRecipient,
+    //   subject: 'New Appointment Created',
+    //   text: `A new appointment has been created by ${name} for ${service} on ${date} at ${time}. Please check the appointment details.`,
+    //   category: 'Appointment Notification',
+    // });
 
     // Return a success message after both emails are sent
     return NextResponse.json(

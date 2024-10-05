@@ -19,7 +19,7 @@ export const POST = async (req: NextRequest) => {
     // Validate the required fields
     if (!name || !email || !phone || !service || !date || !time) {
       return NextResponse.json(
-        { message: 'All fields are required.' },
+        { message: 'All fields are required. oo' },
         { status: 400 }
       );
     }

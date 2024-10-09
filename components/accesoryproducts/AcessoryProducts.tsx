@@ -17,19 +17,26 @@ import product5 from '@/public/multicleaner.webp'
 import Image, { StaticImageData } from 'next/image';
 import { useStore } from '@/store';
 import useProductDetailsStore from '@/store';
-
-
+import { Checkbox } from "@/components/ui/checkbox"
+import { Label } from "@/components/ui/label"
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 type ProductProperty = {
   label: string;
   value: string;
 };
+
 interface Product {
   id: number;
   name: string;
   originalPrice: number;
   salePrice: number;
-  image: StaticImageData; // Adjust based on how your images are imported
+  image: StaticImageData;
   outOfStock: boolean;
   color: string;
   quantity: number;
@@ -40,10 +47,6 @@ interface Product {
   product_properties: ProductProperty[];
   product_return_policy: string;
 }
-
-
-
-
 
 // Example products
 const products: Product[] = [
@@ -59,7 +62,7 @@ const products: Product[] = [
     product_image: product3,
     product_image_shades: [product1,product2,product1a,product1b],
     product_description: 'Strong, versatile nylon cord suitable for a variety of uses.',
-    product_properties: [{ label: 'Material', value: 'Nylon' }],
+    product_properties: [{ label: 'Material', value: 'Nylon' },{ label: 'Brand', value: 'ADIDAS' }],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -74,7 +77,7 @@ const products: Product[] = [
     product_image: product1,
     product_image_shades: [product1, product1a, product1b],
     product_description: 'Durable elastic cord with great flexibility and stretch.',
-    product_properties: [{ label: 'Material', value: 'Elastic' }],
+    product_properties: [{ label: 'Material', value: 'Elastic' }, { label: 'Brand', value: 'ADIDAS SPORT' }],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -89,7 +92,7 @@ const products: Product[] = [
     product_image: product2,
     product_image_shades: [],
     product_description: 'Lightweight plastic cord, ideal for a range of projects.',
-    product_properties: [{ label: 'Material', value: 'Plastic' }],
+    product_properties: [{ label: 'Material', value: 'Plastic' },{ label: 'Brand', value: 'TIMBERLAND' }],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -104,7 +107,7 @@ const products: Product[] = [
     product_image: product4,
     product_image_shades: [product4, product4a],
     product_description: 'Stylish and durable black cloth cord for daily use.',
-    product_properties: [{ label: 'Material', value: 'Cloth' }],
+    product_properties: [{ label: 'Material', value: 'Cloth' },{ label: 'Brand', value: 'BMW' }],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -119,38 +122,132 @@ const products: Product[] = [
     product_image: product5,
     product_image_shades: [],
     product_description: 'Effective lens cleaner for all types of glasses and optics.',
-    product_properties: [{ label: 'Material', value: 'Liquid' }],
+    product_properties: [{ label: 'Material', value: 'Liquid' },{ label: 'Brand', value: 'BALLY' }],
     product_return_policy: '15-day return policy.'
   },
 ];
 
+interface FilterOption {
+  label: string
+  count: number
+}
 
+interface FilterSection {
+  title: string
+  options: FilterOption[]
+}
+
+const filterSections: FilterSection[] = [
+  {
+    title: "Color",
+    options: [
+      { label: "Black", count: 41 },
+      { label: "Red", count: 19 },
+      { label: "Blue", count: 19 },
+      { label: "White", count: 12 },
+    ],
+  },
+  {
+    title: "Brand",
+    options :[
+  { label: "ADIDAS", count: 0 },
+  { label: "ADIDAS SPORT", count: 0 },
+  { label: "AIGNER", count: 0 },
+  { label: "ATELIER SWAROVSKI", count: 0 },
+  { label: "BALLY", count: 0 },
+  { label: "BENETTON", count: 0 },
+  { label: "BMW", count: 0 },
+  { label: "BMW MOTORSPORT", count: 0 },
+  { label: "BOSS", count: 0 },
+  { label: "CAROLINA HERRERA", count: 0 },
+  { label: "CARRERA", count: 0 },
+  { label: "CHOPARD", count: 0 },
+  { label: "CHRISTIAN LACROIX", count: 0 },
+  { label: "DIESEL", count: 0 },
+  { label: "DSQUARED2", count: 0 },
+  { label: "DUCATI", count: 0 },
+  { label: "EMILIO PUCCI", count: 0 },
+  { label: "ERMENEGILDO ZEGNA", count: 0 },
+  { label: "ESCADA", count: 0 },
+  { label: "FILA", count: 0 },
+  { label: "FURLA", count: 0 },
+  { label: "GANT", count: 0 },
+  { label: "GIANFRANCO FERRE", count: 0 },
+  { label: "GREATER THAN INFINITY", count: 0 },
+  { label: "GUESS", count: 0 },
+  { label: "HACKETT", count: 0 },
+  { label: "HACKETT BESPOKE", count: 0 },
+  { label: "HALLY & SON", count: 0 },
+  { label: "HARLEY-DAVIDSON", count: 0 },
+  { label: "HELLY HANSON", count: 0 },
+  { label: "HUGO", count: 0 },
+  { label: "LIEBESKIND", count: 0 },
+  { label: "LIPSY", count: 0 },
+  { label: "LOCMAN", count: 0 },
+  { label: "LONGINES", count: 0 },
+  { label: "LOZZA", count: 0 },
+  { label: "MAJE", count: 0 },
+  { label: "MARCIANO BY GUESS", count: 0 },
+  { label: "MAX & CO", count: 0 },
+  { label: "MAZ MARA", count: 0 },
+  { label: "MORE & MORE", count: 0 },
+  { label: "NEW BALANCE", count: 0 },
+  { label: "NINA RICCI", count: 0 },
+  { label: "OMEGA", count: 0 },
+  { label: "PEPE JEANS", count: 0 },
+  { label: "PHILLIPP PLEIN", count: 0 },
+  { label: "POLAROID", count: 0 },
+  { label: "POLICE", count: 0 },
+  { label: "QUICKSILVER", count: 0 },
+  { label: "REEBOK", count: 0 },
+  { label: "ROBERTO CAVALLI", count: 0 },
+  { label: "ROST", count: 0 },
+  { label: "ROXY", count: 0 },
+  { label: "SANDRO", count: 0 },
+  { label: "SCOTCH & SODA", count: 0 },
+  { label: "SIGHT STATION", count: 0 },
+  { label: "SKECHERS", count: 0 },
+  { label: "SPORTMAX", count: 0 },
+  { label: "STING", count: 0 },
+  { label: "SUPERDRY", count: 0 },
+  { label: "SWAROVSKI", count: 0 },
+  { label: "TED BAKER", count: 0 },
+  { label: "TIMBERLAND", count: 0 },
+  { label: "TODS", count: 0 },
+  { label: "TOMMY HILFIGER", count: 0 },
+  { label: "TRUSSARDI", count: 0 },
+  { label: "VALENTINO", count: 0 },
+  { label: "WEB", count: 0 },
+  { label: "YOHJI YAMAMOTO", count: 0 },
+  { label: "ZAC POSEN", count: 0 },
+  { label: "ZADIG & VOLTAIRE", count: 0 },
+  { label: "ZEGNA COUTURE", count: 0 },
+],
+  },
+]
 
 export default function OpticalFramesProducts() {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [inStockOnly, setInStockOnly] = useState<boolean>(false);
   const [priceRange, setPriceRange] = useState<{ min: number; max: number }>({ min: 0, max: Infinity });
-  const [selectedColor, setSelectedColor] = useState<string>('');
+  // const [selectedColor, setSelectedColor] = useState<string>('');
   const [sortBy, setSortBy] = useState<string>('price-low-high');
   const [itemsToShow, setItemsToShow] = useState<number>(12);
   const { addToCart } = useStore();
   const { setProductDetails } = useProductDetailsStore();
   const [showPopup, setShowPopup] = useState<boolean>(false);
+  const [selectedFilters, setSelectedFilters] = useState<Record<string, string[]>>({});
   
-  
-  // Access the global addToCart function
-
-   const handleProductClick = (product:Product) => {
+  const handleProductClick = (product:Product) => {
     setProductDetails(product);
     localStorage.setItem('selectedProduct', JSON.stringify(product)); // Save to localStorage if necessary
-   };
+  };
   
   const handleAddToCart = (product: Product) => {
     addToCart(product);
     setShowPopup(true);
     setTimeout(() => setShowPopup(false), 3000); // Hide popup after 3 seconds
   };
-
 
   // Handle the sorting logic
   const handleSort = (productsToSort: Product[]): Product[] => {
@@ -166,13 +263,36 @@ export default function OpticalFramesProducts() {
     }
   };
 
+  const handleFilterChange = (section: string, option: string) => {
+    setSelectedFilters((prev) => {
+      const sectionFilters = prev[section] || []
+      if (sectionFilters.includes(option)) {
+        return {
+          ...prev,
+          [section]: sectionFilters.filter((item) => item !== option),
+        }
+      } else {
+        return {
+          ...prev,
+          [section]: [...sectionFilters, option],
+        }
+      }
+    })
+  }
+
   // Handle the filter logic
   const filteredProducts = products.filter(product => {
     const inStockFilter = !inStockOnly || !product.outOfStock;
     const priceFilter = product.salePrice >= priceRange.min && product.salePrice <= priceRange.max;
-    const colorFilter = !selectedColor || product.color === selectedColor;
+    // const colorFilter = !selectedColor || product.color === selectedColor;
+    const accordionColorFilter = selectedFilters['Color']?.length 
+      ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
+      : true;
+    const frameTypeFilter = selectedFilters['Brand']?.length
+      ? selectedFilters['Brand'].includes(product.product_properties.find(prop => prop.label === 'Brand')?.value || '')
+      : true;
 
-    return inStockFilter && priceFilter && colorFilter;
+    return inStockFilter && priceFilter  && accordionColorFilter && frameTypeFilter;
   });
 
   // Sort and limit the filtered products based on the current itemsToShow count
@@ -193,6 +313,41 @@ export default function OpticalFramesProducts() {
         {/* Sidebar */}
         <div className="w-full md:w-1/4">
           <div className="space-y-6">
+            {/* Accordion Filter */}
+            <Accordion type="multiple" className="w-full">
+              {filterSections.map((section) => (
+                <AccordionItem value={section.title} key={section.title}>
+                  <AccordionTrigger className="px-4 py-2 text-left">
+                    <div>
+                      <h2 className="text-lg font-semibold">{section.title}</h2>
+                      <p className="text-sm text-gray-500">
+                        {selectedFilters[section.title]?.length || 0} selected
+                      </p>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent>
+                    <div className="px-4 py-2 h-24 space-y-2 overflow-y-scroll">
+                      {section.options.map((option) => (
+                        <div key={option.label} className="flex items-center">
+                          <Checkbox
+                            id={`${section.title}-${option.label}`}
+                            checked={selectedFilters[section.title]?.includes(option.label)}
+                            onCheckedChange={() => handleFilterChange(section.title, option.label)}
+                          />
+                          <Label
+                            htmlFor={`${section.title}-${option.label}`}
+                            className="ml-2 text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                          >
+                            {option.label} ({option.count})
+                          </Label>
+                        </div>
+                      ))}
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+
             {/* Availability */}
             <div>
               <h2 className="text-xl font-semibold mb-2">Availability</h2>
@@ -227,22 +382,6 @@ export default function OpticalFramesProducts() {
               <Button className="w-full mt-2" onClick={() => console.log('Price filter applied')}>
                 Filter
               </Button>
-            </div>
-
-            {/* Color Filter */}
-            <div>
-              <h2 className="text-xl font-semibold mb-2">Color</h2>
-              <Select onValueChange={(value) => setSelectedColor(value)}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select color" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="all">All colors</SelectItem>
-                  <SelectItem value="black">Black</SelectItem>
-                  <SelectItem value="red">Red</SelectItem>
-                  <SelectItem value="blue">Blue</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
           </div>
         </div>
@@ -311,7 +450,7 @@ export default function OpticalFramesProducts() {
                   <Button
                     variant="outline"
                     size="icon"
-                   onClick={() => handleAddToCart(product)}  // Trigger addToCart with product
+                    onClick={() => handleAddToCart(product)} // Trigger addToCart with product
                   >
                     <ShoppingCart className="h-4 w-4" />
                   </Button>

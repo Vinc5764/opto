@@ -124,7 +124,7 @@ const products: Product[] = [
     product_image: product5,
     product_image_shades: [],
     product_description: "Colored daily disposable lenses for a fresh new look every day.",
-    product_properties: [{ label: "Type", value: "Daily Disposable" },{ label: 'Brand', value: 'BALLY' }],
+    product_properties: [{ label: "Type", value: "Daily Disposable" },{ label: 'Brand', value: 'BALLY' } ],
     product_return_policy: "10-day return policy."
   },
 ];
@@ -144,22 +144,22 @@ const filterSections: FilterSection[] = [
   {
     title: "Color",
     options: [
-      { label: "Black", count: 41 },
-      { label: "Red", count: 19 },
-      { label: "Blue", count: 19 },
-      { label: "White", count: 12 },
+      { label: "Black", count: 0 },
+      { label: "Red", count: 0 },
+      { label: "Blue", count: 3 },
+      { label: "White", count: 2 },
     ],
   },
   {
     title: "Brand",
     options :[
-  { label: "ADIDAS", count: 0 },
-  { label: "ADIDAS SPORT", count: 0 },
+  { label: "ADIDAS", count: 1 },
+  { label: "ADIDAS SPORT", count: 1 },
   { label: "AIGNER", count: 0 },
   { label: "ATELIER SWAROVSKI", count: 0 },
-  { label: "BALLY", count: 0 },
+  { label: "BALLY", count: 1 },
   { label: "BENETTON", count: 0 },
-  { label: "BMW", count: 0 },
+  { label: "BMW", count: 1 },
   { label: "BMW MOTORSPORT", count: 0 },
   { label: "BOSS", count: 0 },
   { label: "CAROLINA HERRERA", count: 0 },
@@ -215,7 +215,7 @@ const filterSections: FilterSection[] = [
   { label: "SUPERDRY", count: 0 },
   { label: "SWAROVSKI", count: 0 },
   { label: "TED BAKER", count: 0 },
-  { label: "TIMBERLAND", count: 0 },
+  { label: "TIMBERLAND", count: 1 },
   { label: "TODS", count: 0 },
   { label: "TOMMY HILFIGER", count: 0 },
   { label: "TRUSSARDI", count: 0 },

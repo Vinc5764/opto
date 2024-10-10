@@ -76,7 +76,7 @@ export const useStore = create<CartState>()(
 
 type ProductProperty = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 

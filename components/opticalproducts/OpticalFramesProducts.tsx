@@ -36,7 +36,7 @@ import {
 
 type ProductProperty = {
   label: string;
-  value: string;
+  value: string | number;
 };
 
 interface Product {
@@ -70,7 +70,14 @@ const products: Product[] = [
     product_image: product1,
     product_image_shades: [product1, product1a, product1b],
     product_description: 'Discover the perfect blend of style and functionality with this Optical Frame, meticulously designed to fit any face shape and complement any style. This versatile eyeglass frame is the ideal choice for anyone seeking a blend of elegance, durability, and comfort.',
-    product_properties: [{ label: 'Material', value: 'Plastic' }, { label: 'Brand', value: 'ADIDAS' }],
+    product_properties: [ { label: 'Brand', value: 'ADIDAS' }, { label: "Gender", value: "Unisex" },
+  { label: "Color", value: "Black" },
+  { label: "Frame Material", value: "Metal" },
+  { label: "Bridge Width", value: 18 },
+  { label: "Frame Width", value: 140 },
+  { label: "Temples Length", value: 145 },
+  { label: "Rim Style", value: "Half Rim" },
+  { label: "Branded Frame", value: "No" },],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -86,7 +93,14 @@ const products: Product[] = [
     product_image: product4,
     product_image_shades: [product4, product4a, product4b],
     product_description: 'Elegant, stylish frame perfect for evening wear. Enhances your unique features.',
-    product_properties: [{ label: 'Material', value: 'Metal' }, { label: 'Brand', value: 'ADIDAS SPORT' }],
+    product_properties: [ { label: 'Brand', value: 'ADIDAS SPORT' },{ label: "Gender", value: "Men" },
+  { label: "Color", value: "Blue" },
+  { label: "Frame Material", value: "Plastic" },
+  { label: "Bridge Width", value: 20 },
+  { label: "Frame Width", value: 142 },
+  { label: "Temples Length", value: 138 },
+  { label: "Rim Style", value: "Full Rim" },
+  { label: "Branded Frame", value: "Yes" },],
     product_return_policy: '15-day return policy.'
   },
   {
@@ -101,7 +115,14 @@ const products: Product[] = [
     product_image: product2,
     product_image_shades: [product2a, product2b, product2c],
     product_description: 'Lightweight, waterproof frame suitable for all occasions, inspired by nature.',
-    product_properties: [{ label: 'Material', value: 'Titanium' }, { label: 'Brand', value: 'TIMBERLAND' }],
+    product_properties: [ { label: 'Brand', value: 'TIMBERLAND' }, { label: "Gender", value: "Women" },
+  { label: "Color", value: "Tortoise" },
+  { label: "Frame Material", value: "Titanium" },
+  { label: "Bridge Width", value: 16 },
+  { label: "Frame Width", value: 138 },
+  { label: "Temples Length", value: 135 },
+  { label: "Rim Style", value: "Rimless" },
+  { label: "Branded Frame", value: "Yes" },],
     product_return_policy: '20-day return policy.'
   },
   {
@@ -116,7 +137,14 @@ const products: Product[] = [
     product_image: product3,
     product_image_shades: [product3, product3a, product3b],
     product_description: 'Stylish, durable, and eco-friendly frame with a touch of elegance for daily wear.',
-    product_properties: [{ label: 'Material', value: 'Wood' }, { label: 'Brand', value: 'BMW' }],
+    product_properties: [ { label: 'Brand', value: 'BMW' },{ label: "Gender", value: "Unisex" },
+  { label: "Color", value: "Green" },
+  { label: "Frame Material", value: "Acetate" },
+  { label: "Bridge Width", value: 21 },
+  { label: "Frame Width", value: 144 },
+  { label: "Temples Length", value: 143 },
+  { label: "Rim Style", value: "Full Rim" },
+  { label: "Branded Frame", value: "No" },],
     product_return_policy: '30-day return policy.'
   },
   {
@@ -131,14 +159,22 @@ const products: Product[] = [
     product_image: product5,
     product_image_shades: [product5, product5a, product5b],
     product_description: 'Bold, iconic design perfect for those seeking a statement piece.',
-    product_properties: [{ label: 'Material', value: 'Plastic' }, { label: 'Brand', value: 'BALLY' }],
+    product_properties:
+  [{ label: 'Brand', value: 'BALLY' }, { label: "Gender", value: "Unisex" },
+  { label: "Color", value: "Red" },
+  { label: "Frame Material", value: "Acetate & Stainless Steel" },
+  { label: "Bridge Width", value: 19 },
+  { label: "Frame Width", value: 135 },
+  { label: "Temples Length", value: 140 },
+  { label: "Rim Style", value: "Full Rim" },
+  { label: "Branded Frame", value: "Yes" },],
     product_return_policy: '30-day return policy.'
   },
 ];
 
 interface FilterOption {
-  label: string
-  count: number
+  label: string;
+  count: number;
 }
 
 interface FilterSection {
@@ -150,22 +186,22 @@ const filterSections: FilterSection[] = [
   {
     title: "Color",
     options: [
-      { label: "Black", count: 41 },
-      { label: "Red", count: 19 },
-      { label: "Blue", count: 19 },
-      { label: "White", count: 12 },
+      { label: "Black", count: 1 },
+      { label: "Red", count: 0 },
+      { label: "Blue", count: 2 },
+      { label: "White", count: 1 },
     ],
   },
   {
     title: "Brand",
     options :[
-  { label: "ADIDAS", count: 0 },
-  { label: "ADIDAS SPORT", count: 0 },
+  { label: "ADIDAS", count: 1 },
+  { label: "ADIDAS SPORT", count: 1 },
   { label: "AIGNER", count: 0 },
   { label: "ATELIER SWAROVSKI", count: 0 },
-  { label: "BALLY", count: 0 },
+  { label: "BALLY", count: 1 },
   { label: "BENETTON", count: 0 },
-  { label: "BMW", count: 0 },
+  { label: "BMW", count: 1 },
   { label: "BMW MOTORSPORT", count: 0 },
   { label: "BOSS", count: 0 },
   { label: "CAROLINA HERRERA", count: 0 },
@@ -221,7 +257,7 @@ const filterSections: FilterSection[] = [
   { label: "SUPERDRY", count: 0 },
   { label: "SWAROVSKI", count: 0 },
   { label: "TED BAKER", count: 0 },
-  { label: "TIMBERLAND", count: 0 },
+  { label: "TIMBERLAND", count: 1 },
   { label: "TODS", count: 0 },
   { label: "TOMMY HILFIGER", count: 0 },
   { label: "TRUSSARDI", count: 0 },
@@ -298,8 +334,11 @@ export default function OpticalFramesProducts() {
       ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
       : true;
     const frameTypeFilter = selectedFilters['Brand']?.length
-      ? selectedFilters['Brand'].includes(product.product_properties.find(prop => prop.label === 'Brand')?.value || '')
-      : true;
+  ? selectedFilters['Brand'].includes(
+      String(product.product_properties.find(prop => prop.label === 'Brand')?.value || '')
+    )
+  : true;
+
 
     return inStockFilter && priceFilter  && accordionColorFilter && frameTypeFilter;
   });

@@ -226,6 +226,7 @@ const filterSections: FilterSection[] = [
   { label: "MARCIANO BY GUESS", count: 0 },
   { label: "MAX & CO", count: 0 },
   { label: "MAZ MARA", count: 0 },
+  { label: "MEL LONDON", count: 0 },
   { label: "MORE & MORE", count: 0 },
   { label: "NEW BALANCE", count: 0 },
   { label: "NINA RICCI", count: 0 },

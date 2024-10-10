@@ -184,15 +184,6 @@ interface FilterSection {
 
 const filterSections: FilterSection[] = [
   {
-    title: "Color",
-    options: [
-      { label: "Black", count: 1 },
-      { label: "Red", count: 0 },
-      { label: "Blue", count: 2 },
-      { label: "White", count: 1 },
-    ],
-  },
-  {
     title: "Brand",
     options :[
   { label: "ADIDAS", count: 1 },
@@ -330,9 +321,9 @@ export default function OpticalFramesProducts() {
     const inStockFilter = !inStockOnly || !product.outOfStock;
     const priceFilter = product.salePrice >= priceRange.min && product.salePrice <= priceRange.max;
     // const colorFilter = !selectedColor || product.color === selectedColor;
-    const accordionColorFilter = selectedFilters['Color']?.length 
-      ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
-      : true;
+    // const accordionColorFilter = selectedFilters['Color']?.length 
+    //   ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
+    //   : true;
     const frameTypeFilter = selectedFilters['Brand']?.length
   ? selectedFilters['Brand'].includes(
       String(product.product_properties.find(prop => prop.label === 'Brand')?.value || '')
@@ -340,7 +331,7 @@ export default function OpticalFramesProducts() {
   : true;
 
 
-    return inStockFilter && priceFilter  && accordionColorFilter && frameTypeFilter;
+    return inStockFilter && priceFilter  && frameTypeFilter;
   });
 
   // Sort and limit the filtered products based on the current itemsToShow count
@@ -374,7 +365,7 @@ export default function OpticalFramesProducts() {
                     </div>
                   </AccordionTrigger>
                   <AccordionContent>
-                    <div className="px-4 py-2 h-24 space-y-2 overflow-y-scroll">
+                    <div className="px-4 py-2 h-48 space-y-2 overflow-y-scroll">
                       {section.options.map((option) => (
                         <div key={option.label} className="flex items-center">
                           <Checkbox

@@ -142,15 +142,6 @@ interface FilterSection {
 
 const filterSections: FilterSection[] = [
   {
-    title: "Color",
-    options: [
-      { label: "Black", count: 0 },
-      { label: "Red", count: 0 },
-      { label: "Blue", count: 3 },
-      { label: "White", count: 2 },
-    ],
-  },
-  {
     title: "Brand",
     options :[
   { label: "ADIDAS", count: 1 },
@@ -288,14 +279,14 @@ export default function OpticalFramesProducts() {
     const inStockFilter = !inStockOnly || !product.outOfStock;
     const priceFilter = product.salePrice >= priceRange.min && product.salePrice <= priceRange.max;
     // const colorFilter = !selectedColor || product.color === selectedColor;
-    const accordionColorFilter = selectedFilters['Color']?.length 
-      ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
-      : true;
+    // const accordionColorFilter = selectedFilters['Color']?.length 
+    //   ? selectedFilters['Color'].includes(product.color.charAt(0).toUpperCase() + product.color.slice(1))
+    //   : true;
     const frameTypeFilter = selectedFilters['Brand']?.length
       ? selectedFilters['Brand'].includes(product.product_properties.find(prop => prop.label === 'Brand')?.value || '')
       : true;
 
-    return inStockFilter && priceFilter  && accordionColorFilter && frameTypeFilter;
+    return inStockFilter && priceFilter  && frameTypeFilter;
   });
 
   // Sort and limit the filtered products based on the current itemsToShow count
